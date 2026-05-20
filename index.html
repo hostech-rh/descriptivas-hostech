@@ -1,0 +1,2526 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Descriptiva de Puesto — Hostech</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --crema: #f6f5ec;
+    --amarillo: #fad83f;
+    --azul: #4563ff;
+    --azul-dark: #2a44d4;
+    --azul-light: #e8ecff;
+    --negro: #111118;
+    --gris: #6b6b7a;
+    --gris-borde: #e2e2ea;
+    --gris-bg: #f8f8fc;
+    --verde: #0f6e56;
+    --verde-light: #e1f5ee;
+    --rojo: #c0392b;
+    --rojo-light: #fdecea;
+    --radio: 10px;
+    --radio-lg: 16px;
+    --sombra: 0 2px 12px rgba(69,99,255,.08);
+    --sombra-hover: 0 6px 24px rgba(69,99,255,.16);
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--crema);
+    color: var(--negro);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--negro);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .logo-text {
+    font-size: 15px;
+    font-weight: 600;
+    color: #fff;
+    letter-spacing: -.01em;
+  }
+  .logo-sub {
+    font-size: 11px;
+    color: rgba(255,255,255,.45);
+    font-weight: 300;
+    margin-top: 1px;
+  }
+  .header-badge {
+    background: var(--azul);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: .02em;
+  }
+
+  /* ── TABS ── */
+  .tabs-bar {
+    background: var(--negro);
+    border-top: 1px solid rgba(255,255,255,.08);
+    display: flex;
+    padding: 0 2rem;
+    gap: 4px;
+  }
+  .tab-btn {
+    padding: 10px 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,.45);
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    transition: color .2s, border-color .2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: rgba(255,255,255,.75); }
+  .tab-btn.active { color: var(--amarillo); border-bottom-color: var(--amarillo); }
+  .tab-btn.rh-tab.active { color: #5DCAA5; border-bottom-color: #5DCAA5; }
+
+  /* ── LAYOUT ── */
+  .main { max-width: 860px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
+  .view { display: none; }
+  .view.active { display: block; }
+
+  /* ── HERO BANNER ── */
+  .hero {
+    background: var(--negro);
+    border-radius: var(--radio-lg);
+    padding: 2rem 2.5rem;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    overflow: hidden;
+    position: relative;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    right: -40px; top: -40px;
+    width: 220px; height: 220px;
+    background: radial-gradient(circle, rgba(250,216,63,.15) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: 26px;
+    color: #fff;
+    font-weight: 400;
+    line-height: 1.2;
+    margin-bottom: 6px;
+  }
+  .hero-sub {
+    font-size: 13px;
+    color: rgba(255,255,255,.5);
+    font-weight: 300;
+    line-height: 1.5;
+    max-width: 400px;
+  }
+  .hero-icon {
+    width: 64px; height: 64px;
+    background: var(--amarillo);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+    flex-shrink: 0;
+  }
+
+  /* ── SELECTOR PUESTO ── */
+  .puesto-selector {
+    background: #fff;
+    border: 2px solid var(--azul-light);
+    border-radius: var(--radio-lg);
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--sombra);
+  }
+  .puesto-selector h3 {
+    font-family: 'DM Serif Display', serif;
+    font-size: 18px;
+    color: var(--azul);
+    margin-bottom: 4px;
+  }
+  .puesto-selector p {
+    font-size: 13px;
+    color: var(--gris);
+    margin-bottom: 14px;
+    line-height: 1.5;
+  }
+  .puesto-select-input {
+    width: 100%;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    padding: 11px 14px;
+    border: 1.5px solid var(--gris-borde);
+    border-radius: var(--radio);
+    background: var(--gris-bg);
+    color: var(--negro);
+    cursor: pointer;
+    transition: border-color .2s, box-shadow .2s;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b6b7a' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 40px;
+  }
+  .puesto-select-input:focus { outline: none; border-color: var(--azul); box-shadow: 0 0 0 3px rgba(69,99,255,.12); }
+
+  .preload-notice {
+    display: none;
+    margin-top: 12px;
+    background: var(--verde-light);
+    border: 1px solid #5DCAA5;
+    border-radius: var(--radio);
+    padding: 10px 14px;
+    font-size: 13px;
+    color: var(--verde);
+    display: none;
+    align-items: center;
+    gap: 8px;
+  }
+  .preload-notice.show { display: flex; }
+
+  /* ── SECTION HEADER ── */
+  .sec-hdr {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 2rem 0 1rem;
+  }
+  .sec-hdr-num {
+    width: 28px; height: 28px;
+    background: var(--negro);
+    color: var(--amarillo);
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .sec-hdr-text {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--negro);
+    text-transform: uppercase;
+    letter-spacing: .06em;
+  }
+  .sec-hdr-line {
+    flex: 1;
+    height: 1px;
+    background: var(--gris-borde);
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: #fff;
+    border: 1px solid var(--gris-borde);
+    border-radius: var(--radio-lg);
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    box-shadow: var(--sombra);
+    transition: box-shadow .2s;
+  }
+  .card:hover { box-shadow: var(--sombra-hover); }
+  .card-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    color: var(--gris);
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-label .pill {
+    font-size: 10px;
+    background: var(--azul-light);
+    color: var(--azul);
+    padding: 2px 8px;
+    border-radius: 20px;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 500;
+  }
+  .card-label .pill-verde {
+    background: var(--verde-light);
+    color: var(--verde);
+  }
+
+  /* ── GRID ── */
+  .fg { display: grid; gap: 14px; margin-bottom: 14px; }
+  .fg2 { grid-template-columns: 1fr 1fr; }
+  .fg3 { grid-template-columns: 1fr 1fr 1fr; }
+  .fg1 { grid-template-columns: 1fr; }
+  @media (max-width: 600px) { .fg2, .fg3 { grid-template-columns: 1fr; } }
+
+  /* ── FIELDS ── */
+  .field { display: flex; flex-direction: column; gap: 5px; }
+  .field label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--gris);
+    letter-spacing: .01em;
+  }
+  .field label span.req { color: var(--azul); margin-left: 2px; }
+  .field input, .field select, .field textarea {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    padding: 9px 12px;
+    border: 1.5px solid var(--gris-borde);
+    border-radius: var(--radio);
+    background: var(--gris-bg);
+    color: var(--negro);
+    transition: border-color .2s, box-shadow .2s, background .2s;
+    width: 100%;
+    resize: vertical;
+  }
+  .field select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b6b7a' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-color: var(--gris-bg);
+    padding-right: 36px;
+    cursor: pointer;
+  }
+  .field textarea { min-height: 80px; line-height: 1.5; }
+  .field input:focus, .field select:focus, .field textarea:focus {
+    outline: none;
+    border-color: var(--azul);
+    box-shadow: 0 0 0 3px rgba(69,99,255,.1);
+    background: #fff;
+  }
+  .field input[readonly] {
+    background: #f0f0f6;
+    color: var(--gris);
+    cursor: default;
+  }
+
+  /* ── CHECKBOX GROUP ── */
+  .chk-grid { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 2px; }
+  .chk-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    padding: 7px 12px;
+    border: 1.5px solid var(--gris-borde);
+    border-radius: 8px;
+    font-size: 13px;
+    color: var(--negro);
+    transition: border-color .15s, background .15s;
+    user-select: none;
+  }
+  .chk-item:hover { border-color: var(--azul); background: var(--azul-light); }
+  .chk-item input[type=checkbox] { accent-color: var(--azul); width: 14px; height: 14px; }
+  .chk-item.checked { border-color: var(--azul); background: var(--azul-light); color: var(--azul); font-weight: 500; }
+
+  /* ── NIVEL BUTTONS ── */
+  .nivel-btns { display: flex; gap: 4px; flex-wrap: wrap; }
+  .nv {
+    padding: 4px 10px;
+    font-size: 11px;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    border-radius: 20px;
+    cursor: pointer;
+    border: 1.5px solid var(--gris-borde);
+    background: #fff;
+    color: var(--gris);
+    transition: all .15s;
+    white-space: nowrap;
+  }
+  .nv:hover { border-color: var(--azul); color: var(--azul); }
+  .nv.sel { background: var(--azul); color: #fff; border-color: var(--azul); }
+
+  /* ── COMPETENCIAS TABLE ── */
+  .comp-wrap { overflow-x: auto; }
+  .comp-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .comp-table th {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    color: var(--gris);
+    border-bottom: 1.5px solid var(--gris-borde);
+    padding: 6px 8px;
+    text-align: left;
+  }
+  .comp-table td { padding: 8px 8px; border-bottom: 1px solid #f0f0f6; vertical-align: middle; }
+  .comp-table tr:last-child td { border-bottom: none; }
+  .comp-name { font-size: 13px; font-weight: 500; color: var(--negro); }
+  .comp-desc { font-size: 11px; color: var(--gris); margin-top: 2px; line-height: 1.4; }
+  .comp-cardinal-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 500;
+    background: #111118;
+    color: var(--amarillo);
+    padding: 1px 7px;
+    border-radius: 10px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+
+  /* ADD ROW */
+  .add-row { display: flex; gap: 8px; margin-top: 10px; }
+  .add-row input { flex: 1; }
+  .add-row input, .add-row .field input { font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 8px 12px; border: 1.5px solid var(--gris-borde); border-radius: var(--radio); background: var(--gris-bg); color: var(--negro); }
+  .add-row input:focus { outline: none; border-color: var(--azul); }
+
+  /* ── RESPONSABILIDADES ── */
+  .resp-item { display: flex; gap: 10px; align-items: flex-start; margin-bottom: 10px; }
+  .exp-row td { padding: 5px 6px; border-bottom: 1px solid var(--gris-borde); vertical-align: middle; }
+  .exp-row:last-child td { border-bottom: none; }
+  .exp-row select, .exp-row input { font-family: 'DM Sans',sans-serif; font-size:13px; padding:7px 10px; border:1.5px solid var(--gris-borde); border-radius:var(--radio); background:var(--gris-bg); color:var(--negro); width:100%; }
+  .exp-row select:focus, .exp-row input:focus { outline:none; border-color:var(--azul); box-shadow:0 0 0 3px rgba(69,99,255,.1); }
+  .resp-num { width: 26px; height: 26px; background: var(--azul-light); color: var(--azul); border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; margin-top: 8px; }
+  .resp-fields { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .resp-fields input, .resp-fields textarea { font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 8px 12px; border: 1.5px solid var(--gris-borde); border-radius: var(--radio); background: var(--gris-bg); color: var(--negro); width: 100%; }
+  .resp-fields textarea { min-height: 56px; resize: vertical; }
+  .resp-fields input:focus, .resp-fields textarea:focus { outline: none; border-color: var(--azul); box-shadow: 0 0 0 3px rgba(69,99,255,.1); }
+
+  /* ── IDIOMAS ── */
+  .idioma-row { display: flex; gap: 8px; align-items: flex-end; margin-bottom: 8px; }
+  .idioma-row .field { flex: 1; }
+  .idioma-row .field:first-child { flex: 1.5; }
+
+  /* ── BUTTONS ── */
+  .btn {
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    padding: 9px 18px;
+    border-radius: var(--radio);
+    cursor: pointer;
+    border: 1.5px solid var(--gris-borde);
+    background: #fff;
+    color: var(--negro);
+    transition: all .2s;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+  }
+  .btn:hover { background: var(--gris-bg); border-color: #ccc; }
+  .btn-primary { background: var(--azul); color: #fff; border-color: var(--azul); }
+  .btn-primary:hover { background: var(--azul-dark); border-color: var(--azul-dark); box-shadow: 0 4px 16px rgba(69,99,255,.3); }
+  .btn-verde { background: var(--verde); color: #fff; border-color: var(--verde); }
+  .btn-verde:hover { background: #085041; border-color: #085041; }
+  .btn-danger { color: var(--rojo); border-color: #f0c0bc; }
+  .btn-danger:hover { background: var(--rojo-light); }
+  .btn-sm { padding: 6px 12px; font-size: 12px; }
+  .btn-xs { padding: 3px 8px; font-size: 11px; border-radius: 6px; }
+  .btn-ghost { border-color: transparent; background: transparent; }
+  .btn-ghost:hover { background: var(--gris-bg); border-color: var(--gris-borde); }
+  .btn-amarillo { background: var(--amarillo); color: var(--negro); border-color: var(--amarillo); font-weight: 600; }
+  .btn-amarillo:hover { background: #f0c92a; }
+
+  .actions { display: flex; gap: 10px; justify-content: flex-end; margin-top: 2rem; padding-top: 1.5rem; border-top: 1px solid var(--gris-borde); }
+
+  /* ── TOAST ── */
+  #toast {
+    position: fixed;
+    bottom: 24px; right: 24px;
+    padding: 12px 18px;
+    border-radius: var(--radio);
+    font-size: 13px;
+    font-weight: 500;
+    z-index: 9999;
+    display: none;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,.15);
+    max-width: 340px;
+    animation: slideUp .25s ease;
+  }
+  @keyframes slideUp { from { transform: translateY(16px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+  #toast.ok { background: var(--verde); color: #fff; display: flex; }
+  #toast.err { background: var(--rojo); color: #fff; display: flex; }
+
+  /* ── STATS ── */
+  .stats-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 1.5rem; }
+  .stat-card {
+    background: var(--negro);
+    border-radius: var(--radio-lg);
+    padding: 1.25rem;
+    text-align: center;
+  }
+  .stat-n { font-family: 'DM Serif Display', serif; font-size: 32px; color: var(--amarillo); }
+  .stat-l { font-size: 12px; color: rgba(255,255,255,.5); margin-top: 3px; }
+
+  /* ── DB CARDS ── */
+  .db-card {
+    background: #fff;
+    border: 1px solid var(--gris-borde);
+    border-radius: var(--radio-lg);
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 10px;
+    transition: box-shadow .2s, border-color .2s;
+  }
+  .db-card:hover { box-shadow: var(--sombra-hover); border-color: #d0d0e0; }
+  .db-card-hdr { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; margin-bottom: 8px; }
+  .db-card-title { font-size: 15px; font-weight: 600; color: var(--negro); }
+  .db-card-sub { font-size: 12px; color: var(--gris); margin-top: 3px; }
+  .db-card-btns { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+  .db-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 16px; margin-top: 8px; }
+  .db-meta-item { font-size: 12px; color: var(--gris); }
+  .db-meta-item strong { color: var(--negro); font-weight: 500; }
+  .badge { display: inline-flex; align-items: center; font-size: 11px; font-weight: 500; padding: 2px 9px; border-radius: 20px; }
+  .badge-azul { background: var(--azul-light); color: var(--azul); }
+  .badge-verde { background: var(--verde-light); color: var(--verde); }
+  .badge-amarillo { background: #fef9e0; color: #8a6800; }
+  .badge-negro { background: var(--negro); color: var(--amarillo); }
+
+  .detail-panel { background: var(--gris-bg); border-radius: var(--radio); padding: 1.25rem; margin-top: 10px; display: none; }
+  .det-sec { margin-bottom: 10px; }
+  .det-lbl { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--gris); margin-bottom: 3px; }
+  .det-val { font-size: 13px; color: var(--negro); line-height: 1.6; white-space: pre-wrap; }
+
+  /* ── FILTER ROW ── */
+  .filter-row { display: flex; gap: 10px; margin-bottom: 1.25rem; }
+  .filter-row .search-input {
+    flex: 1;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    padding: 9px 14px 9px 36px;
+    border: 1.5px solid var(--gris-borde);
+    border-radius: var(--radio);
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b6b7a' stroke-width='2'%3E%3Ccircle cx='11' cy='11' r='8'/%3E%3Cpath d='M21 21l-4.35-4.35'/%3E%3C/svg%3E") no-repeat 12px center;
+    color: var(--negro);
+    transition: border-color .2s, box-shadow .2s;
+  }
+  .filter-row .search-input:focus { outline: none; border-color: var(--azul); box-shadow: 0 0 0 3px rgba(69,99,255,.1); }
+  .filter-row select { font-family: 'DM Sans', sans-serif; font-size: 13px; padding: 9px 32px 9px 12px; border: 1.5px solid var(--gris-borde); border-radius: var(--radio); background: #fff; color: var(--negro); appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%236b6b7a' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; cursor: pointer; }
+  .filter-row select:focus { outline: none; border-color: var(--azul); }
+
+  /* ── RH PIN ── */
+  .pin-box {
+    background: var(--negro);
+    border-radius: var(--radio-lg);
+    padding: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: center;
+  }
+  .pin-box h3 { font-family: 'DM Serif Display', serif; font-size: 22px; color: #fff; margin-bottom: 6px; }
+  .pin-box p { font-size: 13px; color: rgba(255,255,255,.5); margin-bottom: 1.25rem; }
+  .pin-input-row { display: flex; gap: 10px; justify-content: center; align-items: center; }
+  .pin-input-row input { font-family: 'DM Mono', monospace; letter-spacing: .2em; font-size: 18px; padding: 10px 16px; border: 1.5px solid rgba(255,255,255,.15); border-radius: var(--radio); background: rgba(255,255,255,.08); color: #fff; width: 140px; text-align: center; }
+  .pin-input-row input:focus { outline: none; border-color: #5DCAA5; }
+  .pin-error { color: #ff6b6b; font-size: 13px; margin-top: 8px; display: none; }
+
+  /* ── DIVIDER ── */
+  .divider { border: none; border-top: 1px solid var(--gris-borde); margin: 16px 0; }
+
+  /* ── EMPTY ── */
+  .empty { text-align: center; padding: 3rem 1rem; color: var(--gris); font-size: 14px; }
+
+  /* ── SENDING OVERLAY ── */
+  .sending-overlay { display: none; position: fixed; inset: 0; background: rgba(17,17,24,.7); z-index: 9998; align-items: center; justify-content: center; }
+  .sending-overlay.show { display: flex; }
+  .sending-box { background: #fff; border-radius: var(--radio-lg); padding: 2.5rem 3rem; text-align: center; }
+  .spinner { width: 40px; height: 40px; border: 3px solid var(--azul-light); border-top-color: var(--azul); border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 1rem; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .sending-box p { font-size: 14px; color: var(--gris); }
+
+  /* ── SUCCESS SCREEN ── */
+  .success-screen { display: none; text-align: center; padding: 3rem 2rem; }
+
+  /* ── ACORDEÓN ── */
+  .sec-wrapper { margin-bottom: 1rem; border: 1px solid var(--gris-borde); border-radius: var(--radio-lg); overflow: hidden; background: #fff; box-shadow: var(--sombra); transition: box-shadow .2s; }
+  .sec-wrapper:hover { box-shadow: var(--sombra-hover); }
+  .sec-toggle { display: flex; align-items: center; gap: 10px; padding: 14px 16px; cursor: pointer; user-select: none; background: #fff; border: none; width: 100%; text-align: left; transition: background .15s; }
+  .sec-toggle:hover { background: var(--gris-bg); }
+  .sec-toggle.open { background: var(--gris-bg); }
+  .sec-toggle .sec-hdr-num { width: 28px; height: 28px; border-radius: 7px; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; flex-shrink: 0; background: var(--negro); color: var(--amarillo); transition: background .2s; }
+  .sec-toggle.done .sec-hdr-num { background: var(--verde); color: #fff; }
+  .sec-toggle.has-errors .sec-hdr-num { background: var(--rojo); color: #fff; }
+  .sec-toggle .sec-hdr-text { font-size: 13px; font-weight: 600; color: var(--negro); text-transform: uppercase; letter-spacing: .06em; flex: 1; }
+  .sec-toggle .sec-status { font-size: 11px; font-weight: 500; margin-left: auto; }
+  .sec-toggle.done .sec-status { color: var(--verde); }
+  .sec-toggle.has-errors .sec-status { color: var(--rojo); }
+  .sec-toggle .chevron { font-size: 14px; color: var(--gris); transition: transform .25s; flex-shrink: 0; }
+  .sec-toggle.open .chevron { transform: rotate(180deg); }
+  .sec-body { display: none; padding: 0 16px 16px; border-top: 1px solid var(--gris-borde); }
+  .sec-body.open { display: block; }
+  .sec-body .card { border: none; box-shadow: none; padding: 12px 0 0; }
+  .sec-body .card:hover { box-shadow: none; }
+
+  /* ── PROGRESO ── */
+  .progress-bar-wrap { background: var(--gris-bg); border: 1px solid var(--gris-borde); border-radius: var(--radio-lg); padding: 14px 18px; margin-bottom: 1.5rem; }
+  .progress-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .progress-label { font-size: 13px; font-weight: 500; color: var(--negro); }
+  .progress-count { font-size: 12px; color: var(--gris); }
+  .progress-track { height: 6px; background: var(--gris-borde); border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; background: var(--verde); border-radius: 3px; transition: width .4s ease; }
+  .progress-sections { display: flex; gap: 4px; margin-top: 8px; flex-wrap: wrap; }
+  .prog-chip { font-size: 10px; font-weight: 500; padding: 2px 8px; border-radius: 10px; }
+  .prog-chip.done { background: var(--verde-light); color: var(--verde); }
+  .prog-chip.pending { background: var(--gris-bg); color: var(--gris); border: 1px solid var(--gris-borde); }
+  .prog-chip.error { background: var(--rojo-light); color: var(--rojo); }
+
+  /* ── CAMPOS INVÁLIDOS ── */
+  .field-error input, .field-error select, .field-error textarea { border-color: var(--rojo) !important; background: var(--rojo-light) !important; }
+  .field-error-msg { font-size: 11px; color: var(--rojo); margin-top: 3px; font-weight: 500; }
+  .expand-all-btn { font-size: 12px; color: var(--gris); cursor: pointer; background: none; border: none; text-decoration: underline; padding: 0; }
+  .expand-all-btn:hover { color: var(--negro); }
+
+  .success-screen .icon { font-size: 56px; margin-bottom: 1rem; }
+  .success-screen h2 { font-family: 'DM Serif Display', serif; font-size: 28px; color: var(--negro); margin-bottom: 8px; }
+  .success-screen p { font-size: 14px; color: var(--gris); margin-bottom: 1.5rem; }
+</style>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+</head>
+<body>
+
+<div id="sending-overlay" class="sending-overlay">
+  <div class="sending-box">
+    <div class="spinner"></div>
+    <p>Enviando descriptiva…</p>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<header>
+  <div class="logo">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAhEAAAK4CAYAAADKja80AAAX+ElEQVR4nO3cUY+e5Z3f8d81Y2w3TZpx9mRxCqW2kVpZJAc0B7yJdiAMdbeHwVRIZaOaKE448klW2GykjbJNJFuRkKoVrYbAhL4H96BFbalcrYTtRSE4PUlsljTgMZ6rB9tou1tsZv545rrvmc/nFfzkZ65nvnM9t5/Wew8AwFYtjB4AAMyTiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAoEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAECJiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAoEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJftGDyi51PYn+YPczj9L8mhaDidZHLyKO7udnvfScjEb+Vn25bUc7+ujRwHw2bTe++gNW/Pf2lNZzLkk/2D0FIp6riT5Tr7SXx09BYC6+UTEalvMP8qPkjwzegr3zI/z53kuK/326CEwd2310v7cOLCcnuW09lh67k9yYPQu7uhmkmtJLqZtrGVp/Y2+cnx2N7TziYj/0f4kyTdHz+CeeymP9G+PHgFz1i68/WSy8GJ6jo7eQlHL5fT+fH/m2Bujp2zFPCLirfYHafmz0TPYNk/lkb46egTMTVvNYq5fOZvk+dFbuFfa2Vw78kI/k43RSzZj+v874z+1v5OWl0bPYBv1fP//PiwLbMX1qz+MgNhl+ukcvvq90Ss2a/oR8YWsJDk8egbbqOWB3M7XR8+AOWnnr5xI+rOjd7Ad+nfaTy4vj16xGdOPiI08PnoCO2Ahy6MnwFy0l985mOT7o3ewjW7nB2310uRvaKcfEcmjowewAzbyldETYDbWP3ZDu+u1B3P94BOjV3ya6UdEc1D2hJb7R0+AGVkePYAdMfmb+OlHhG+i3Cu+OHoAzEf72ugF7ICWR0ZP+DRziAgA/l+9u6HdC2bwOosIgLlpzQ3tntAmf0MrIgCAEhEBAJSICACgREQAACUiAgAoEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAECJiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAoEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAECJiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAoEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAECJiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAoEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAECJiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAoEREAQMkcIuL26AHsiA9HDwBga6YfET3XRk9gR/xy9AAAtmb6EdHyn0dPYEd4nWGzendDuyf090cv+DRziIi10RPYARteZ9i01tzQ7gWtTf6GdvoR8fmsJj7S2NV6fp59eW30DJiRN0cPYAf0vDV6wqeZfkQ81D/KRp4fPYNt1HMqx/v66BkwG62/PnoCO2AGN/HTj4gk+Wr/90l+NHoG26DnT/PV/tPRM2BWPjjghnb3ezdLH03+vXEeEZEkf54/TPLHo2dwj/T0tLyYr+Sbo6fA3PRTD3yYlm+N3sE2ahun+srxyd/Qtt776A1b89/bE2k5m5Zjo6dQ1HM5Pafy1f4fR0+BOWvnr/4o6c+O3sE91tq5fvLI6dEzNmM+NxG/89X+WhZzPMlT6fmzJH+RnpujZ3EXPR8luZrk32UjT+bX+ccCAu6BQ0eeS3J+9AzuodbOZenIC6NnbNb8biIA+BvahctPJe1seh4avYWilstpOd2fPjqr/6kmIgB2gbZ6aX9uHDiRnuUkjybtcJJ9g2dxZ7fSci29X0zLWpZurs3hGYi/TUQAACXzeyYCAJgEEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAECJiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAoEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKNk3egAAn01bvbQ/Nw4sp2c5rT2WnvuTHBi9izu6meRakotpG2tZWn+jrxxfHz2qovXeR2/YunZmfw59eTk3P17Orf5YNhyYibuZxVzLvnYxB/et5dfvvZF+ZpYHBqamXXj7yWThxfQcHb2FopbL6f35/syxN0ZP2ar5RcTvXXgyH9x6MRsOzGwttMs5mOfzl8/O7sDAVLTVLOb6lbNJnh+9hXulnc21Iy/0M9kYvWSz5hMRbXUxn79+Nh9+7MDsFp9bOJsP/tcL6Wdmc2BgKtr5qz9K+rOjd3CvtRf7M0e+O3rFZs3nwcq/+6sfCohd5rcbp/OFw98bPQPmpp2/ckJA7Fb9O+0nl5dHr9isedxEfOn8ifzlx6+MnsE2+fy+x3PjmbXRM2AO2svvHMz67StJDo/ewnbpP8+hmw/P4WHL6d9EtJcP5jcff3/0DLbRbz/+QdqZ/aNnwCysf7wSAbHLtQdz/eATo1dsxvQjYml9JRsOzK62kQdz6PAsDgxMwPLoAeyIx0cP2IzpR8T67eXRE9gBN2/P4sDAeO1roxewA1oeGT1hM6YfEbfiwOwFt+ZxYGC43t3M7gUzeZ2nHxEbG7P4h+Qz8jrD5rS2OHoCO6F9cfSCzZh+RMSB2RvmcWAA+GsziAgAYIpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAECJiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAoEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAECJiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAoEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAECJiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAoEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAECJiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAoEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAHPS++3RE9gJ/f3RCzZjBhHhwOwN8zgwMFxr10ZPYAe09svREzZj+hGxsODA7AUL8zgwMAFvjh7ADuh5a/SEzZh+RNzXHJi94L42iwMDw7X++ugJ7ICWtdETNmP6EbE/DsxecGDf2ugJMAsfHFhN4oZ2d3s3Sx/9dPSIzZh+RNz47WoWHJhdbaG9m+vvzeLAwGj91AMfpuVbo3ewjdrGqb5yfH30jM2YfkT0Ux/m8/c5MLvZF/adSj8ziwMDU9BPHn0laT8evYNt0Nq5fvLhV0fP2KzpR0SS/PrkKzm44MDsRp9bPJdfnZzNgYHJOHTkuSTnR8/gHmrtXJaOvDB6xlbMIyKS5H//3nM5uODA7CafWzyXD740qwMDU9FXcrs/c/RfpfV/npZ3Ru/hM2i5nIV8vZ88crqvZFZfa9B676M3bM2XLjyV39w6m408NHoKRQvtcr5w3+n86unXRk+B3aCtXtqfGwdOpGc5yaNJO5xk3+BZ3NmttFxL7xfTspalm2tzeQbib5tfRCRJO7M/S79/Irf6ctb7o7mdw2kOzGT1fiuL7VruaxdzYN9arr+35hkIgPmbZ0QAAMPN55kIAGBSRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAECJiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAoEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCU7Bs9oKKtXtqfGweW07Oc1h5Lz/1JDozexR3dTHItycW0jbUsrb/RV46vjx5V9f/9/G3kcFr2j94FzM5v0vKL9P5fs5jX8/du/mxu742t9z56w5a0C28/mSy8mJ6jo7dQ1HI5vT/fnzn2xugpW9UuXHk8ybn0HBu9BdhlWi6n5XR/+uhro6ds1mwioq1mMdevnE3y/Ogt3CvtbK4deaGfycboJZ+mrWYxN67+UXr/9ugtwC7X2rksHXmhr+T26CmfZj7PRFy/+sMIiF2mn87hq98bvWJTBASwU3r/dm5c/aPRMzZjFjcR7fyVE0leGb2DbbLYH+/fOLY2esadtAtvP5m+sDp6B7DHtI2VfvLhV0fPuJvJR0R7+Z2DWb99Jcnh0VvYLv3nOXTz4Sk+UNRWL+3Prw9eScvfH70F2HPey6GPjkzxvfF3pv9xxvrHKxEQu1x7MNcPPjF6xSe6sX9FQACDfDnv739q9Ii7mX5EJMujB7AjHh894BP1heXRE4A9rLfl0RPuZgYR0b42egE7oOWR0RM+UYufP2Cg9k9GL7ib6UdE7z7K2Aum+jr3/P7oCcAetpH7R0+4m+lHRGuLoyewE9oXRy+4A9+ECowz8W/DnX5EAACTJCIAgBIRAQCUiAgAoEREAAAlIgIAKBERAECJiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAoEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAECJiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAoEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAECJiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAoEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAECJiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAoEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAECJiIC76flg9ASAqZp+RPR+e/QEdkJ/f/SCT9Tyy9ETAKZq+hHR2rXRE9gBrU31l/VbowcATNX0IyJ5c/QAdkCf6C/rtrE2egLAVE0/Ilp/ffQEdkDL2ugJn2hpfTU9vxg9A2CKph8RHxxYTeIjjd3t3Sx99NPRIz5JXzm+nn391OgdAFM0+Yjopx74MC3fGr2DbdQ2TvWV4+ujZ9xJ/8ax1aS/NHoHwNRMPiKSpJ88+krSfjx6B9ugtXP95MOvjp7xqQ4d+25a/nT0DIApmUVEJEkOHXkuyfnRM7iHWjuXpSMvjJ6xGX0lt/vJo88l7cm0XB69B2AKWu999IYtaRcuP5W0s+l5aPQWiloup+V0f/roa6OnVLTVS/tzY/9K0h5P2qPp+XKS+0bvAnan/szRNnrDncwuIpLfvYkfOJGe5SSPJu1wkn2DZ3Fnt9JyLb1fTMtalm6uTfkZCJiydv7K/N60+UxEBAD3hIjYe6YcEfN5JgIAmBQRAQCUiAgAoEREAAAlIgIAKBERAECJiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAoEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAECJiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAo2Td6QEVbvbQ/Nw4sp2c5rT2WnvuTHBi9izu6meRakotpG2tZWn+jrxxfHz0KgM9mdjcR7cLbT+bGwf+Z3v5D0v5Feh6KgJi6A0n+YZJ/mb6wmhsHL7Xzl//p6FEAfDaziYi2msV2/sofpy+spufo6D18Bj3Hkvazdv7qi+3MfH4GAfib5vMGfv3qD5M8P3oG91I/ncNXvzd6BQA1s4iIdv7KiaQ/O3oH26F/p/3k8vLoFQBs3eQjor38zsEk3x+9g210Oz9oq5f2j54BwNZMPiKy/vFKksOjZ7Cd2oO5fvCJ0SsA2JrpR0SyPHoAO+Lx0QMA2JoZRET72ugF7ICWR0ZPAGBrph8RvfsoYy/wOgPMzvQjorXF0RPYCe2LoxcAsDXTjwgAYJJEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAECJiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAoEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAECJiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAoEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAECJiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAoEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAECJiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAoEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAEDJ9COi99ujJ7AT+vujFwCwNdOPiNaujZ7ADmjtl6MnwCz0fDB6AjuoZ330hLuZfkQkb44ewA7oeWv0BJiFFsG9lyxM+/WefkS0/vroCeyAlrXRE2AmBPee0v/L6AV3M/2I+ODAahIfaexu72bpo5+OHgGz0DbWRk9gB7W+NnrC3Uw+IvqpBz5My7dG72AbtY1TfeX4pD/3g8lYWl9Nzy9Gz2BHvJffZnX0iLuZfEQkST959JWk/Xj0DrZBa+f6yYdfHT0D5qKvHF/Pvn5q9A52wGL/N/0PH745esbdzCIikiSHjjyX5PzoGdxDrZ3L0pEXRs+AuenfOLaa9JdG72A79Zf+6nWettZ7H71hS9qFy08l7Wx6Hhq9haKWy2k53Z8++troKTBXbTWLuXHlT9Lzr0dv4Z77tzl09Jt9JZP/nqTZRUSStNVL+3PjwIn0LCd5NGmHk+wbPIs7u5WWa+n9YlrWsnRzzTMQcG+081e/ntZfTM+x0Vv4jFouJxvfndNHvLOMCAD+2l/9YbV/JWmPJ+3R9Hw5yX2jd/GpbqXlvaS/mfTXs7S+Orc/sEQEAFAynwcrAYBJEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCUiAgAoEREAAAlIgIAKBERAECJiAAASkQEAFAiIgCAEhEBAJSICACgREQAACUiAgAoEREAQImIAABKRAQAUCIiAIASEQEAlIgIAKBERAAAJSICACgREQBAiYgAAEpEBABQIiIAgBIRAQCU/B/1w6BsgHOfzgAAAABJRU5ErkJggg==" alt="Hostech" style="height:44px;width:auto;object-fit:contain">
+    <div>
+      <div class="logo-text" style="font-family:'DM Serif Display',serif;font-size:18px;letter-spacing:0">Hostech</div>
+      <div class="logo-sub">Recursos Humanos &nbsp;·&nbsp; Tu talento nos inspira, tu crecimiento nos mueve</div>
+    </div>
+  </div>
+  <span class="header-badge">Descriptivas de Puesto</span>
+</header>
+
+<div class="tabs-bar">
+  <button class="tab-btn active" onclick="switchTab('form')">Nueva descriptiva</button>
+  <button class="tab-btn" onclick="switchTab('db')">Base de datos</button>
+  <button class="tab-btn rh-tab" onclick="switchTab('rh')">Admin RH</button>
+</div>
+
+<div class="main">
+
+  <!-- ═══════════════════════════════
+       TAB: FORMULARIO
+  ═══════════════════════════════ -->
+  <div id="view-form" class="view active">
+
+    <div class="hero">
+      <div>
+        <div class="hero-title">Descriptiva de Puesto</div>
+        <div class="hero-sub">Selecciona el puesto del catálogo para precargar la información, o llena desde cero si es un puesto nuevo.</div>
+      </div>
+      <div class="hero-icon">📋</div>
+    </div>
+
+    <!-- SELECTOR -->
+    <div class="puesto-selector">
+      <h3>¿Este puesto ya está en el catálogo?</h3>
+      <p>Si existe, el formulario se llenará automáticamente. Solo valida y ajusta lo que sea particular.</p>
+      <select class="puesto-select-input" id="catalogo-select" onchange="precargarPuesto()">
+        <option value="">— Selecciona un puesto del catálogo —</option>
+        <option value="__nuevo__">✦ Puesto nuevo — llenar desde cero</option>
+      </select>
+      <div class="preload-notice" id="preload-notice">
+        ✓ Información precargada. Revisa, ajusta lo necesario y guarda.
+      </div>
+    </div>
+
+    <div class="progress-bar-wrap" id="progress-wrap">
+      <div class="progress-top">
+        <span class="progress-label" id="progress-label">Completa las secciones para poder enviar</span>
+        <div style="display:flex;gap:12px;align-items:center">
+          <button class="expand-all-btn" onclick="toggleAllSections()">Expandir todo</button>
+          <span class="progress-count" id="progress-count">0 de 10</span>
+        </div>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill" style="width:0%"></div></div>
+      <div class="progress-sections" id="progress-chips"></div>
+    </div>
+    <div id="form-content">
+      <div id="success-screen" class="success-screen">
+        <div class="icon">✅</div>
+        <h2>¡Descriptiva enviada!</h2>
+        <p>La información fue registrada correctamente. RH recibirá una notificación.</p>
+        <button class="btn btn-primary" onclick="nuevaDescriptiva()">Llenar otra descriptiva</button>
+      </div>
+
+      <div id="form-fields">
+
+      <!-- I -->
+      <div class="sec-wrapper" id="sec-I-wrapper">
+        <button class="sec-toggle open" id="sec-I-toggle" onclick="toggleSection('sec-I')">
+          <div class="sec-hdr-num">I</div>
+          <div class="sec-hdr-text">Identificación del puesto</div>
+          <span class="sec-status" id="sec-I-status"></span>
+          <span class="chevron">▾</span>
+        </button>
+        <div class="sec-body open" id="sec-I-body">
+          <div class="card">
+        <div class="fg fg3">
+          <div class="field"><label>Nombre del puesto <span class="req">*</span></label>
+          <div id="nombre-wrapper">
+            <select id="f-nombre" onchange="onNombreChange()" style="margin-bottom:0">
+              <option value="">Seleccionar puesto…</option>
+              <option>Administrador de Plataformas</option>
+              <option>Asistente de Dirección</option>
+              <option>Asistente General</option>
+              <option>Auxiliar Administrativo</option>
+              <option>Auxiliar Contable</option>
+              <option>Auxiliar de Limpieza</option>
+              <option>Chofer</option>
+              <option>Community Manager</option>
+              <option>Coordinador Contable</option>
+              <option>Coordinador de Reclutamiento y Selección</option>
+              <option>Desarrollador Full Stack</option>
+              <option>Director de Mercadotecnia</option>
+              <option>Director de Transformación</option>
+              <option>Director de Ventas</option>
+              <option>Director General</option>
+              <option>Diseñador Jr.</option>
+              <option>Diseñador Sr.</option>
+              <option>Encargada Administrativa</option>
+              <option>Ejecutiva de Bodas</option>
+              <option>Ejecutiva de Cobranza</option>
+              <option>Ejecutiva de Cotizaciones</option>
+              <option>Ejecutiva de Grupos</option>
+              <option>Ejecutiva de Precompras</option>
+              <option>Ejecutiva de Reservaciones</option>
+              <option>Ejecutiva de Seguimiento</option>
+              <option>Ejecutivo de Plataformas</option>
+              <option>Ejecutivo de Producto</option>
+              <option>Ejecutivo de Reservaciones</option>
+              <option>Ejecutivo de Ventas</option>
+              <option>Generalista de Recursos Humanos</option>
+              <option>Gerente de Administración</option>
+              <option>Gerente de Contabilidad</option>
+              <option>Gerente de Desarrollo Organizacional</option>
+              <option>Gerente de Grupos y Bodas</option>
+              <option>Gerente de Marketing</option>
+              <option>Gerente de Operaciones</option>
+              <option>Gerente de Producto</option>
+              <option>Gerente de Reservaciones</option>
+              <option>Gerente de Transformación</option>
+              <option>Gerente de Ventas</option>
+              <option>Gerente de Zona</option>
+              <option>Gestora de Proyectos y Procesos</option>
+              <option>Líder de Desarrollo</option>
+              <option>Responsable de Seguimiento A2A</option>
+              <option>Soporte</option>
+              <option>Supervisor de Cotizaciones</option>
+              <option>Supervisor de Reservas</option>
+              <option>Supervisor de Seguimiento</option>
+              <option>UX/UI Designer</option>
+            </select>
+            <input id="f-nombre-nuevo" placeholder="Escribe el nombre del puesto nuevo…"
+              style="display:none;margin-top:6px" oninput="autoGenerarClave()">
+            <div id="f-nombre-nuevo-hint" style="display:none;font-size:11px;color:var(--gris);margin-top:4px">
+              Este es un puesto nuevo — RH lo agregará al catálogo después de revisarlo.
+            </div>
+          </div>
+        </div>
+          <div class="field"><label>Área de trabajo <span class="req">*</span></label><select id="f-area" onchange="autoGenerarClave()">
+      <option value="">Seleccionar…</option>
+      <option>Administración</option>
+      <option>Comercial</option>
+      <option>Contabilidad</option>
+      <option>Dirección</option>
+      <option>Grupos y Bodas</option>
+      <option>Marketing</option>
+      <option>Operaciones</option>
+      <option>Producto</option>
+      <option>Recursos Humanos</option>
+      <option>Transformación</option>
+    </select></div>
+          <div class="field"><label>Sub área</label><input id="f-subarea" placeholder="Ej. A2A"></div>
+        </div>
+        <div class="fg fg3">
+          <div class="field"><label>Puesto al que reporta</label><input id="f-jefe" placeholder="Ej. Supervisor de Reservaciones"></div>
+          <div class="field"><label>Nivel</label>
+            <select id="f-nivel">
+<option value="">Seleccionar…</option>
+<option>Directivo</option>
+<option>Alta Gerencia</option>
+<option>Gerencial</option>
+<option>Jefatura</option>
+<option>Coordinación</option>
+<option>Especialista</option>
+<option>Analista</option>
+<option>Ejecutivo</option>
+<option>Agente</option>
+</select>
+          </div>
+          <div class="field"><label>Clave del puesto</label><input id="f-clave" placeholder="Ej. RES-001"></div>
+        </div>
+        <div class="fg fg3">
+          <div class="field"><label>Elaborado por <span class="req">*</span></label><input id="f-autor" placeholder="Nombre del líder"></div>
+          <div class="field"><label>Revisado por</label><input id="f-revisor"></div>
+          <div class="field"><label>Aprobado por</label><input id="f-aprobador"></div>
+        </div>
+        <div class="fg fg3">
+          <div class="field"><label>Fecha</label><input id="f-fecha" type="date"></div>
+          <div class="field"><label>Evaluación de desempeño</label>
+            <select id="f-eval-desempeno"><option value="">Frecuencia…</option><option>No aplica</option><option>Pendiente de definir</option><option>Mensual</option><option>Bimestral</option><option>Trimestral</option><option>Semestral</option><option>Anual</option></select>
+          </div>
+          <div class="field"><label>Horas por semana</label><select id="f-horas">
+              <option value="">Seleccionar…</option>
+              <option>20</option>
+              <option>30</option>
+              <option>40</option>
+              <option>44</option>
+              <option>48</option>
+            </select></div>
+        </div>
+        <div class="card-label" style="margin-top:4px">Jornada y modalidad</div>
+        <div class="fg fg2">
+          <div>
+            <div style="font-size:12px;font-weight:500;color:var(--gris);margin-bottom:6px">Jornada</div>
+            <div class="chk-grid">
+              <label class="chk-item" id="chk-jornada-completa"><input type="checkbox" id="f-jc"> Completa</label>
+              <label class="chk-item" id="chk-jornada-mixta"><input type="checkbox" id="f-jm"> Mixta</label>
+              <label class="chk-item" id="chk-jornada-media"><input type="checkbox" id="f-jmed"> Media</label>
+            </div>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:500;color:var(--gris);margin-bottom:6px">Modalidad</div>
+            <div class="chk-grid">
+              <label class="chk-item" id="chk-mod-presencial"><input type="checkbox" id="f-mp"> Presencial</label>
+              <label class="chk-item" id="chk-mod-hibrido"><input type="checkbox" id="f-mh"> Híbrido</label>
+              <label class="chk-item" id="chk-mod-remoto"><input type="checkbox" id="f-mr"> Remoto</label>
+            </div>
+          </div>
+        </div>
+        <div class="field" style="margin-top:10px"><label>Sede / Ubicación</label><input id="f-sede" placeholder="Ej. CDMX — Oficinas corporativas"></div>
+      </div>
+        </div>
+      </div>
+      <!-- II -->
+      <div class="sec-wrapper" id="sec-II-wrapper">
+        <button class="sec-toggle " id="sec-II-toggle" onclick="toggleSection('sec-II')">
+          <div class="sec-hdr-num">II</div>
+          <div class="sec-hdr-text">Misión y Visión</div>
+          <span class="sec-status" id="sec-II-status"></span>
+          <span class="chevron">▾</span>
+        </button>
+        <div class="sec-body " id="sec-II-body">
+          <div class="card">
+        <div class="fg fg2">
+          <div class="field"><label>Misión del puesto</label><textarea id="f-mision" placeholder="Razón de ser del puesto…"></textarea></div>
+          <div class="field"><label>Visión del puesto</label><textarea id="f-vision" placeholder="Aspiración a futuro…"></textarea></div>
+        </div>
+      </div>
+        </div>
+      </div>
+      <!-- III -->
+      <div class="sec-wrapper" id="sec-III-wrapper">
+        <button class="sec-toggle " id="sec-III-toggle" onclick="toggleSection('sec-III')">
+          <div class="sec-hdr-num">III</div>
+          <div class="sec-hdr-text">Objetivo y resultados esperados del puesto</div>
+          <span class="sec-status" id="sec-III-status"></span>
+          <span class="chevron">▾</span>
+        </button>
+        <div class="sec-body " id="sec-III-body">
+          <div class="card">
+        <div style="background:#f8f8fc;border:1px dashed #c8c8d8;border-radius:10px;padding:12px 14px;margin-bottom:14px;font-size:12px;color:#6b6b7a;line-height:1.6">
+          <div style="font-weight:600;color:#3d3d50;margin-bottom:6px">¿Cómo redactar el objetivo?</div>
+          Describe en 2–4 líneas <strong>qué hace el puesto</strong>, <strong>para qué existe</strong> y <strong>qué resultado concreto aporta</strong> a la organización.<br><br>
+          <span style="color:#4563ff;font-weight:500">Ejemplos:</span><br>
+          • <em>Atender y resolver las solicitudes de agencias y hoteles garantizando tiempos de respuesta ágiles y una experiencia de servicio de alto estándar, contribuyendo a la retención de cuentas clave.</em><br>
+          • <em>Gestionar el proceso completo de reclutamiento y selección asegurando la incorporación oportuna del talento que la organización necesita para cumplir sus objetivos de negocio.</em>
+        </div>
+        <div class="field"><label>Objetivo del puesto — incluye qué hace, para qué y qué resultado aporta</label><textarea id="f-objetivo" style="min-height:100px" placeholder="Ej. Coordinar la operación de reservaciones A2A garantizando respuestas ágiles y precisas a agencias, contribuyendo a la satisfacción del cliente y la retención de cuentas estratégicas."></textarea></div>
+      </div>
+        </div>
+      </div>
+      <!-- IV -->
+      <div class="sec-wrapper" id="sec-IV-wrapper">
+        <button class="sec-toggle " id="sec-IV-toggle" onclick="toggleSection('sec-IV')">
+          <div class="sec-hdr-num">IV</div>
+          <div class="sec-hdr-text">Escolaridad y Experiencia</div>
+          <span class="sec-status" id="sec-IV-status"></span>
+          <span class="chevron">▾</span>
+        </button>
+        <div class="sec-body " id="sec-IV-body">
+          <div class="card">
+        <div class="fg fg2">
+          <div class="field"><label>Escolaridad requerida</label>
+            <select id="f-escolaridad">
+              <option value="">Seleccionar…</option>
+              <option>Secundaria</option>
+              <option>Bachillerato / Preparatoria</option>
+              <option>Técnico superior universitario</option>
+              <option>Licenciatura</option>
+              <option>Especialidad</option>
+              <option>Maestría</option>
+              <option>Doctorado</option>
+            </select>
+          </div>
+          <div class="field" style="grid-column:1/-1">
+            <label>Experiencia requerida</label>
+            <div style="font-size:12px;color:var(--gris);margin-bottom:8px">Agrega un renglón por cada tipo de experiencia relevante para el puesto.</div>
+            <table style="width:100%;border-collapse:collapse;font-size:13px">
+              <thead>
+                <tr>
+                  <th style="width:36%;padding:6px 8px;background:var(--negro);color:var(--amarillo);font-size:11px;font-weight:600;text-align:left;border-radius:6px 0 0 0">Años de experiencia</th>
+                  <th style="padding:6px 8px;background:var(--negro);color:var(--amarillo);font-size:11px;font-weight:600;text-align:left;border-radius:0 6px 0 0">Área o tipo de experiencia</th>
+                  <th style="width:40px;background:var(--negro);border-radius:0 0 0 0"></th>
+                </tr>
+              </thead>
+              <tbody id="exp-body"></tbody>
+            </table>
+            <button class="btn btn-sm" onclick="addExp()" style="margin-top:8px">+ Agregar experiencia</button>
+          </div>
+        </div>
+        <div class="fg fg2">
+          <div class="field"><label>Área de conocimiento</label><input id="f-conocimiento" placeholder="Ej. Turismo, Administración"></div>
+          <div class="field"><label>Habilidades interpersonales</label><input id="f-hab-inter" placeholder="Ej. Comunicación asertiva, trabajo en equipo"></div>
+        </div>
+        <hr class="divider">
+        <div class="card-label">Idiomas adicionales <span class="pill">Solo idiomas además del español</span></div>
+        <div id="idiomas-container"></div>
+        <button class="btn btn-sm" onclick="addIdioma()" style="margin-top:4px">+ Agregar idioma</button>
+      </div>
+        </div>
+      </div>
+      <!-- V -->
+      <div class="sec-wrapper" id="sec-V-wrapper">
+        <button class="sec-toggle " id="sec-V-toggle" onclick="toggleSection('sec-V')">
+          <div class="sec-hdr-num">V</div>
+          <div class="sec-hdr-text">Competencias</div>
+          <span class="sec-status" id="sec-V-status"></span>
+          <span class="chevron">▾</span>
+        </button>
+        <div class="sec-body " id="sec-V-body">
+          <div class="card">
+        <div class="card-label">Competencias cardinales <span class="pill" style="background:var(--negro);color:var(--amarillo)">Aplican a todos los puestos</span></div>
+        <div class="comp-wrap">
+          <table class="comp-table">
+            <thead><tr><th style="width:50%">Competencia</th><th>Nivel requerido para este puesto</th></tr></thead>
+            <tbody id="comp-cardinal-body"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Conocimientos y habilidades técnicas del puesto <span class="pill">Específicas de este rol</span></div>
+        <div style="font-size:12px;color:var(--gris);margin-bottom:10px;line-height:1.5">Agrega los conocimientos técnicos que debe tener quien ocupe este puesto y selecciona el nivel requerido.</div>
+        <div class="comp-wrap">
+          <table class="comp-table">
+            <thead><tr><th style="width:45%">Conocimiento / habilidad técnica</th><th>Nivel requerido</th><th style="width:40px"></th></tr></thead>
+            <tbody id="comp-tec-body"></tbody>
+          </table>
+        </div>
+        <div class="add-row">
+          <input id="new-comp-tec" placeholder="Ej. Manejo de sistemas de reservaciones (CRS / GDS / PMS)…">
+          <button class="btn btn-sm" onclick="addComp('tec')">+ Agregar</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Otras competencias requeridas para la selección <span class="pill">Habilidades de la persona</span></div>
+        <div style="font-size:12px;color:var(--gris);margin-bottom:10px;line-height:1.5">Agrega las competencias o habilidades de la persona (no técnicas) que son importantes para desempeñarse bien en este puesto.</div>
+        <div class="comp-wrap">
+          <table class="comp-table">
+            <thead><tr><th style="width:45%">Competencia / habilidad</th><th>Nivel requerido</th><th style="width:40px"></th></tr></thead>
+            <tbody id="comp-rel-body"></tbody>
+          </table>
+        </div>
+        <div class="add-row">
+          <input id="new-comp-rel" placeholder="Ej. Orientación al cliente, manejo de conflictos, tolerancia a la presión…">
+          <button class="btn btn-sm" onclick="addComp('rel')">+ Agregar</button>
+        </div>
+      </div>
+        </div>
+      </div>
+      <!-- VI -->
+      <div class="sec-wrapper" id="sec-VI-wrapper">
+        <button class="sec-toggle " id="sec-VI-toggle" onclick="toggleSection('sec-VI')">
+          <div class="sec-hdr-num">VI</div>
+          <div class="sec-hdr-text">Funciones y tareas</div>
+          <span class="sec-status" id="sec-VI-status"></span>
+          <span class="chevron">▾</span>
+        </button>
+        <div class="sec-body " id="sec-VI-body">
+          <div class="card">
+        <div class="field fg1"><label>Funciones clave del puesto</label><textarea id="f-func-sust" placeholder="Una función por línea…"></textarea></div>
+        <div class="fg fg2" style="margin-top:12px">
+          <div class="field"><label>Funciones de apoyo</label><textarea id="f-func-apoyo" placeholder="Una función por línea…"></textarea></div>
+          <div class="field"><label>Funciones eventuales</label><textarea id="f-func-event" placeholder="Una función por línea…"></textarea></div>
+        </div>
+      </div>
+        </div>
+      </div>
+      <!-- VII -->
+      <div class="sec-wrapper" id="sec-VII-wrapper">
+        <button class="sec-toggle " id="sec-VII-toggle" onclick="toggleSection('sec-VII')">
+          <div class="sec-hdr-num">VII</div>
+          <div class="sec-hdr-text">Relaciones e interacciones</div>
+          <span class="sec-status" id="sec-VII-status"></span>
+          <span class="chevron">▾</span>
+        </button>
+        <div class="sec-body " id="sec-VII-body">
+          <div class="card">
+        <div class="fg fg3">
+          <div class="field"><label>Colaboradores directos</label><input id="f-colab-directos" type="number" min="0" placeholder="0"></div>
+          <div class="field"><label>Colaboradores indirectos</label><input id="f-colab-indirectos" type="number" min="0" placeholder="0"></div>
+          <div class="field"><label>Total a cargo</label><input id="f-colab-total" readonly placeholder="Automático"></div>
+        </div>
+        <div class="fg fg3">
+          <div class="field"><label>Puestos que supervisa</label><input id="f-supervisados"></div>
+          <div class="field"><label>Interactúa con</label><textarea id="f-rel-int" style="min-height:60px" placeholder="Externo: Hoteleros&#10;Interno: Ventas, Producto…"></textarea></div>
+          <div class="field"><label>Quién puede reemplazarlo</label><input id="f-reemplazo"></div>
+        </div>
+      </div>
+        </div>
+      </div>
+      <!-- X -->
+      <div class="sec-wrapper" id="sec-VIII-wrapper">
+        <button class="sec-toggle " id="sec-VIII-toggle" onclick="toggleSection('sec-VIII')">
+          <div class="sec-hdr-num">VIII</div>
+          <div class="sec-hdr-text">Responsabilidad financiera</div>
+          <span class="sec-status" id="sec-VIII-status"></span>
+          <span class="chevron">▾</span>
+        </button>
+        <div class="sec-body " id="sec-VIII-body">
+          <div class="card">
+        <div style="background:#f8f8fc;border:1px dashed #c8c8d8;border-radius:10px;padding:12px 14px;margin-bottom:16px;font-size:12px;color:#6b6b7a;line-height:1.6">
+          <div style="font-weight:600;color:#3d3d50;margin-bottom:4px">¿Por qué es importante esta información?</div>
+          El nivel de responsabilidad financiera es uno de los factores que más influye en la valuación y el peso de un puesto dentro de la organización. Saber si el puesto maneja presupuesto, genera ventas o tiene acceso a recursos económicos nos ayuda a entender su impacto real y a ubicarlo correctamente en la estructura salarial. <strong>Si no aplica ninguna, simplemente déjalo en "No aplica".</strong>
+        </div>
+        <div class="fg fg2">
+          <div class="field"><label>Responsabilidad de ventas / ingresos</label>
+            <select id="f-resp-ventas"><option value="">No aplica</option><option>Sí — metas propias</option><option>Sí — cuota de equipo</option><option>Sí — ingresos de unidad de negocio</option></select>
+          </div>
+          <div class="field"><label>Monto de ventas / ingreso</label><input id="f-monto-ventas" placeholder="Ej. $2,000,000 MXN anuales"></div>
+        </div>
+        <div class="fg fg2">
+          <div class="field"><label>Responsabilidad de presupuesto</label>
+            <select id="f-resp-presupuesto"><option value="">No aplica</option><option>Sí — gestiona presupuesto del área</option><option>Sí — autoriza gastos con límite</option><option>Sí — aprueba múltiples áreas</option></select>
+          </div>
+          <div class="field"><label>Monto de presupuesto</label><input id="f-monto-presupuesto" placeholder="Ej. $5,000,000 MXN anuales"></div>
+        </div>
+        <div class="field"><label>Manejo de efectivo / valores / cuentas</label><input id="f-manejo-efectivo"></div>
+      </div>
+        </div>
+      </div>
+      <!-- XI -->
+      <div class="sec-wrapper" id="sec-IX-wrapper">
+        <button class="sec-toggle " id="sec-IX-toggle" onclick="toggleSection('sec-IX')">
+          <div class="sec-hdr-num">IX</div>
+          <div class="sec-hdr-text">Condiciones de trabajo</div>
+          <span class="sec-status" id="sec-IX-status"></span>
+          <span class="chevron">▾</span>
+        </button>
+        <div class="sec-body " id="sec-IX-body">
+          <div class="card">
+        <div class="fg fg2">
+          <div class="field"><label>Esfuerzo mental</label><select id="f-esf-mental"><option value="">…</option><option>Bajo — tareas rutinarias</option><option>Medio — análisis ocasional</option><option>Alto — decisiones complejas</option><option>Muy alto — decisiones estratégicas</option></select></div>
+          <div class="field"><label>Esfuerzo físico</label><select id="f-esf-fisico"><option value="">…</option><option>Mínimo — sedentario</option><option>Leve</option><option>Moderado</option><option>Alto</option></select></div>
+        </div>
+        <div class="fg fg2">
+          <div class="field"><label>Ambiente físico</label><select id="f-ambiente"><option value="">…</option><option>Oficina climatizada</option><option>Oficina con exposición leve</option><option>Planta / campo</option><option>Condiciones adversas</option></select></div>
+          <div class="field"><label>Riesgo laboral</label><select id="f-riesgo"><option value="">…</option><option>Bajo</option><option>Medio</option><option>Alto</option><option>Muy alto</option></select></div>
+        </div>
+        <div class="fg fg1" style="margin-bottom:12px">
+          <div class="field"><label>Impacto de errores</label><select id="f-impacto" style="max-width:320px"><option value="">…</option><option>Mínimo</option><option>Local</option><option>Departamental</option><option>Organizacional</option></select></div>
+        </div>
+
+        <div class="fg fg2">
+          <!-- RECURSOS MATERIALES -->
+          <div class="field">
+            <label>Recursos materiales a cargo</label>
+            <div style="font-size:11px;color:var(--gris);margin-bottom:8px;line-height:1.4">Selecciona los equipos o herramientas que este puesto utiliza o tiene a su cargo.</div>
+            <div class="chk-grid" id="recursos-chk-grid" style="margin-bottom:8px">
+              <label class="chk-item" data-chk="Laptop"><input type="checkbox" value="Laptop"> Laptop</label>
+              <label class="chk-item" data-chk="Monitor"><input type="checkbox" value="Monitor"> Monitor</label>
+              <label class="chk-item" data-chk="Mouse"><input type="checkbox" value="Mouse"> Mouse</label>
+              <label class="chk-item" data-chk="Mousepad"><input type="checkbox" value="Mousepad"> Mousepad</label>
+              <label class="chk-item" data-chk="Teclado"><input type="checkbox" value="Teclado"> Teclado</label>
+              <label class="chk-item" data-chk="Escritorio"><input type="checkbox" value="Escritorio"> Escritorio</label>
+              <label class="chk-item" data-chk="Silla ergonómica"><input type="checkbox" value="Silla ergonómica"> Silla ergonómica</label>
+              <label class="chk-item" data-chk="Teléfono"><input type="checkbox" value="Teléfono"> Teléfono</label>
+              <label class="chk-item" data-chk="Celular corporativo"><input type="checkbox" value="Celular corporativo"> Celular corporativo</label>
+              <label class="chk-item" data-chk="Vehículo de empresa"><input type="checkbox" value="Vehículo de empresa"> Vehículo de empresa</label>
+              <label class="chk-item" data-chk="Caja chica"><input type="checkbox" value="Caja chica"> Caja chica</label>
+              <label class="chk-item" data-chk="Impresora"><input type="checkbox" value="Impresora"> Impresora</label>
+              <label class="chk-item" data-chk="Tarjeta corporativa"><input type="checkbox" value="Tarjeta corporativa"> Tarjeta corporativa</label>
+            </div>
+            <div id="recursos-extra-container"></div>
+            <button class="btn btn-sm" onclick="addRecurso()" style="margin-top:2px">+ Agregar otro</button>
+          </div>
+
+          <!-- INFORMACIÓN CONFIDENCIAL -->
+          <div class="field">
+            <label>Información confidencial que maneja</label>
+            <div style="font-size:11px;color:var(--gris);margin-bottom:8px;line-height:1.4">Selecciona las categorías de información sensible a las que este puesto tiene acceso.</div>
+            <div class="chk-grid" id="confidencial-chk-grid" style="margin-bottom:8px">
+              <label class="chk-item" data-chk="Información de clientes"><input type="checkbox" value="Información de clientes"> Información de clientes</label>
+              <label class="chk-item" data-chk="Información de proveedores"><input type="checkbox" value="Información de proveedores"> Información de proveedores</label>
+              <label class="chk-item" data-chk="Información financiera"><input type="checkbox" value="Información financiera"> Información financiera</label>
+              <label class="chk-item" data-chk="Información de personal interno"><input type="checkbox" value="Información de personal interno"> Información de personal interno</label>
+              <label class="chk-item" data-chk="Estrategias comerciales"><input type="checkbox" value="Estrategias comerciales"> Estrategias comerciales</label>
+              <label class="chk-item" data-chk="Contratos y acuerdos"><input type="checkbox" value="Contratos y acuerdos"> Contratos y acuerdos</label>
+              <label class="chk-item" data-chk="Información legal"><input type="checkbox" value="Información legal"> Información legal</label>
+            </div>
+            <div id="confidencial-extra-container"></div>
+            <button class="btn btn-sm" onclick="addConfidencial()" style="margin-top:2px">+ Agregar otro</button>
+          </div>
+        </div>
+      </div>
+        </div>
+      </div>
+      <!-- XII -->
+      <div class="sec-wrapper" id="sec-X-wrapper">
+        <button class="sec-toggle " id="sec-X-toggle" onclick="toggleSection('sec-X')">
+          <div class="sec-hdr-num">X</div>
+          <div class="sec-hdr-text">Perfil del ocupante</div>
+          <span class="sec-status" id="sec-X-status"></span>
+          <span class="chevron">▾</span>
+        </button>
+        <div class="sec-body " id="sec-X-body">
+          <div class="card">
+        <div class="fg fg2">
+          <div class="field"><label>Disponibilidad para viajar</label>
+            <select id="f-disponibilidad"><option value="">…</option><option>No requiere viajes</option><option>Viajes esporádicos (menos del 10%)</option><option>Viajes frecuentes (10–40%)</option><option>Alta movilidad (más del 40%)</option></select>
+          </div>
+          <div class="field"><label>Características personales</label><input id="f-caracteristicas" placeholder="Ej. Proactividad, orientación al servicio"></div>
+        </div>
+        <hr class="divider">
+        <div class="card-label" style="margin-bottom:10px">Requisitos adicionales</div>
+        <div class="fg fg3">
+          <div class="field"><label>Licencia de conducir</label>
+            <select id="f-licencia"><option value="">No requerida</option><option>Sí — tipo A (motocicleta)</option><option>Sí — tipo B (automóvil)</option><option>Sí — tipo C (camión / carga)</option><option>Sí — cualquier tipo</option></select>
+          </div>
+          <div class="field"><label>Automóvil propio</label>
+            <select id="f-auto"><option value="">No requerido</option><option>Deseable</option><option>Indispensable</option></select>
+          </div>
+          <div class="field"><label>Disponibilidad de horario</label>
+            <select id="f-disp-horario"><option value="">No aplica</option><option>Horario fijo</option><option>Horario flexible</option><option>Disponibilidad en fines de semana</option><option>Disponibilidad nocturna</option><option>Guardias / rotación de turnos</option></select>
+          </div>
+        </div>
+      </div>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn btn-ghost" onclick="clearForm()">Limpiar</button>
+        <button class="btn btn-amarillo" onclick="saveLocal()">Guardar local</button>
+        <button class="btn btn-primary" onclick="submitForm()">✉ Enviar a RH</button>
+      </div>
+
+      </div><!-- /form-fields -->
+    </div><!-- /form-content -->
+  </div>
+
+  <!-- ═══════════════════════════════
+       TAB: BASE DE DATOS
+  ═══════════════════════════════ -->
+  <div id="view-db" class="view">
+    <div class="stats-row" id="stats-panel"></div>
+    <div class="filter-row">
+      <input class="search-input" id="search-input" placeholder="Buscar por puesto, área o autor…" oninput="renderDB()">
+      <select id="filter-nivel" onchange="renderDB()">
+        <option value="">Todos los niveles</option>
+        <option>Directivo</option><option>Alta Gerencia</option><option>Gerencial</option><option>Jefatura</option><option>Coordinación</option><option>Especialista</option><option>Analista</option><option>Ejecutivo</option><option>Agente</option>
+      </select>
+    </div>
+    <div id="db-list"></div>
+  </div>
+
+  <!-- ═══════════════════════════════
+       TAB: ADMIN RH
+  ═══════════════════════════════ -->
+  <div id="view-rh" class="view">
+    <div class="pin-box">
+      <h3>🔐 Acceso RH</h3>
+      <p>Módulo exclusivo para Recursos Humanos. Ingresa el PIN para administrar el catálogo.</p>
+      <div id="rh-lock">
+        <div class="pin-input-row">
+          <input type="password" id="pin-input" placeholder="• • • •" maxlength="6" onkeydown="if(event.key==='Enter')verifyPin()">
+          <button class="btn btn-verde" onclick="verifyPin()">Entrar</button>
+        </div>
+        <div class="pin-error" id="pin-error">PIN incorrecto. Intenta de nuevo.</div>
+      </div>
+      <div id="rh-session" style="display:none">
+        <p style="color:rgba(255,255,255,.6);font-size:13px">Sesión activa como RH <button class="btn btn-sm btn-ghost" onclick="lockRH()" style="color:rgba(255,255,255,.5);margin-left:8px">Cerrar sesión</button></p>
+      </div>
+    </div>
+
+    <div id="rh-content" style="display:none">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:1.25rem">
+        <div style="font-size:16px;font-weight:600;color:var(--negro)">Catálogo de puestos tipo</div>
+        <button class="btn btn-verde" onclick="showCatalogoForm()">+ Nuevo puesto tipo</button>
+      </div>
+      <div id="catalogo-list"></div>
+
+      <div id="catalogo-form" style="display:none;margin-top:1.5rem">
+        <div class="sec-hdr"><div class="sec-hdr-num" style="background:var(--verde);color:#fff">✎</div><div class="sec-hdr-text" style="color:var(--verde)">Definir puesto tipo</div><div class="sec-hdr-line"></div></div>
+        <div class="card">
+          <div class="fg fg3">
+            <div class="field"><label>Nombre del puesto <span class="req">*</span></label><input id="ct-nombre" placeholder="Ej. Gerente de RH"></div>
+            <div class="field"><label>Área</label><select id="ct-area">
+      <option value="">Seleccionar…</option>
+      <option>Administración</option>
+      <option>Comercial</option>
+      <option>Contabilidad</option>
+      <option>Dirección</option>
+      <option>Grupos y Bodas</option>
+      <option>Marketing</option>
+      <option>Operaciones</option>
+      <option>Producto</option>
+      <option>Recursos Humanos</option>
+      <option>Transformación</option>
+    </select></div>
+            <div class="field"><label>Nivel</label><select id="ct-nivel">
+<option value="">…</option>
+<option>Directivo</option>
+<option>Alta Gerencia</option>
+<option>Gerencial</option>
+<option>Jefatura</option>
+<option>Coordinación</option>
+<option>Especialista</option>
+<option>Analista</option>
+<option>Ejecutivo</option>
+<option>Agente</option>
+</select></div>
+          </div>
+          <div class="fg fg3">
+            <div class="field"><label>Reporta a</label><input id="ct-jefe"></div>
+            <div class="field"><label>Clave</label><input id="ct-clave"></div>
+            <div class="field"><label>Horas/semana</label><select id="ct-horas">
+              <option value="">Seleccionar…</option>
+              <option>20</option>
+              <option>30</option>
+              <option>40</option>
+              <option>44</option>
+              <option>48</option>
+            </select></div>
+          </div>
+          <div class="fg fg2">
+            <div class="field"><label>Evaluación de desempeño</label><select id="ct-eval"><option value="">…</option><option>No aplica</option><option>Pendiente de definir</option><option>Mensual</option><option>Bimestral</option><option>Trimestral</option><option>Semestral</option><option>Anual</option></select></div>
+            <div class="field"><label>Escolaridad mínima</label>
+            <select id="ct-escolaridad">
+              <option value="">Seleccionar…</option>
+              <option>Secundaria</option>
+              <option>Bachillerato / Preparatoria</option>
+              <option>Técnico superior universitario</option>
+              <option>Licenciatura</option>
+              <option>Especialidad</option>
+              <option>Maestría</option>
+              <option>Doctorado</option>
+            </select>
+          </div>
+          </div>
+          <div class="card-label" style="margin-top:4px">Jornada y modalidad</div>
+          <div class="chk-grid">
+            <label class="chk-item"><input type="checkbox" id="ct-jc"> Completa</label>
+            <label class="chk-item"><input type="checkbox" id="ct-jm"> Mixta</label>
+            <label class="chk-item"><input type="checkbox" id="ct-jmed"> Media</label>
+            <label class="chk-item"><input type="checkbox" id="ct-mp"> Presencial</label>
+            <label class="chk-item"><input type="checkbox" id="ct-mh"> Híbrido</label>
+            <label class="chk-item"><input type="checkbox" id="ct-mr"> Remoto</label>
+          </div>
+        </div>
+        <div class="card">
+          <div class="fg fg2">
+            <div class="field"><label>Misión</label><textarea id="ct-mision" style="min-height:60px"></textarea></div>
+            <div class="field"><label>Visión</label><textarea id="ct-vision" style="min-height:60px"></textarea></div>
+          </div>
+          <div class="field"><label>Objetivo</label><textarea id="ct-objetivo" style="min-height:60px"></textarea></div>
+          <div class="fg fg2" style="margin-top:12px">
+            <div class="field" style="grid-column:1/-1">
+              <label>Experiencia requerida</label>
+              <table style="width:100%;border-collapse:collapse;font-size:13px">
+                <thead>
+                  <tr>
+                    <th style="width:36%;padding:6px 8px;background:var(--negro);color:var(--amarillo);font-size:11px;font-weight:600;text-align:left;border-radius:6px 0 0 0">Años de experiencia</th>
+                    <th style="padding:6px 8px;background:var(--negro);color:var(--amarillo);font-size:11px;font-weight:600;text-align:left;border-radius:0 6px 0 0">Área o tipo de experiencia</th>
+                    <th style="width:40px;background:var(--negro)"></th>
+                  </tr>
+                </thead>
+                <tbody id="ct-exp-body"></tbody>
+              </table>
+              <button class="btn btn-sm" onclick="addCtExp()" style="margin-top:8px">+ Agregar experiencia</button>
+            </div>
+            <div class="field"><label>Funciones clave del puesto</label><textarea id="ct-func-sust" style="min-height:60px"></textarea></div>
+          </div>
+          <div class="fg fg2"> <div class="field"><label>Reemplazo en ausencia</label><input id="ct-reemplazo"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-label">Competencias cardinales — nivel estándar <span class="pill" style="background:var(--negro);color:var(--amarillo)">Por puesto tipo</span></div>
+          <div class="comp-wrap">
+            <table class="comp-table"><thead><tr><th>Competencia</th><th>Nivel</th></tr></thead>
+            <tbody id="ct-cardinal-body"></tbody></table>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-label">Competencias técnicas tipo</div>
+          <div class="comp-wrap"><table class="comp-table"><thead><tr><th>Competencia</th><th>Nivel</th><th style="width:40px"></th></tr></thead><tbody id="ct-tec-body"></tbody></table></div>
+          <div class="add-row"><input id="ct-new-tec" placeholder="Agregar…"><button class="btn btn-sm" onclick="addCtComp('tec')">+</button></div>
+        </div>
+        <div class="card">
+          <div class="card-label">Competencias relacionales tipo</div>
+          <div class="comp-wrap"><table class="comp-table"><thead><tr><th>Competencia</th><th>Nivel</th><th style="width:40px"></th></tr></thead><tbody id="ct-rel-body"></tbody></table></div>
+          <div class="add-row"><input id="ct-new-rel" placeholder="Agregar…"><button class="btn btn-sm" onclick="addCtComp('rel')">+</button></div>
+        </div>
+        <div class="card">
+          <div class="fg fg2">
+            <div class="field"><label>Esfuerzo mental</label><select id="ct-esf-mental"><option value="">…</option><option>Bajo — tareas rutinarias</option><option>Medio — análisis ocasional</option><option>Alto — decisiones complejas</option><option>Muy alto — decisiones estratégicas</option></select></div>
+            <div class="field"><label>Esfuerzo físico</label><select id="ct-esf-fisico"><option value="">…</option><option>Mínimo — sedentario</option><option>Leve</option><option>Moderado</option><option>Alto</option></select></div>
+          </div>
+          <div class="fg fg2">
+            <div class="field"><label>Ambiente físico</label><select id="ct-ambiente"><option value="">…</option><option>Oficina climatizada</option><option>Oficina con exposición leve</option><option>Exteriores — visitas a clientes / exposición al clima</option><option>Planta / campo</option><option>Condiciones adversas</option></select></div>
+            <div class="field"><label>Riesgo laboral</label><select id="ct-riesgo"><option value="">…</option><option>Bajo</option><option>Medio</option><option>Alto</option><option>Muy alto</option></select></div>
+          </div>
+          <div class="fg fg3">
+            <div class="field"><label>Impacto de errores</label><select id="ct-impacto"><option value="">…</option><option>Mínimo</option><option>Local</option><option>Departamental</option><option>Organizacional</option></select></div>
+            <div class="field"><label>Disponibilidad para viajar</label><select id="ct-disponibilidad"><option value="">…</option><option>No requiere viajes</option><option>Viajes esporádicos (menos del 10%)</option><option>Viajes frecuentes (10–40%)</option><option>Alta movilidad (más del 40%)</option></select></div>
+          </div>
+          <div class="fg fg3">
+            <div class="field"><label>Licencia de conducir</label><select id="ct-licencia"><option value="">No requerida</option><option>Sí — tipo A (motocicleta)</option><option>Sí — tipo B (automóvil)</option><option>Sí — tipo C (camión / carga)</option><option>Sí — cualquier tipo</option></select></div>
+            <div class="field"><label>Automóvil propio</label><select id="ct-auto"><option value="">No requerido</option><option>Deseable</option><option>Indispensable</option></select></div>
+            <div class="field"><label>Disponibilidad de horario</label><select id="ct-disp-horario"><option value="">No aplica</option><option>Horario fijo</option><option>Horario flexible</option><option>Disponibilidad en fines de semana</option><option>Disponibilidad nocturna</option><option>Guardias / rotación de turnos</option></select></div>
+          </div>
+        </div>
+        <input type="hidden" id="ct-editing-id">
+        <div class="actions">
+          <button class="btn" onclick="hideCatalogoForm()">Cancelar</button>
+          <button class="btn btn-verde" onclick="savePuestoTipo()">Guardar en catálogo</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<script>
+// ═══════════════════════════════════════════
+// CONFIGURACIÓN — cambia esta URL por tu Formspree
+// ═══════════════════════════════════════════
+const FORMSPREE_URL = 'https://formspree.io/f/mjglqgpv';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwGAFyTAm7TAsy10K4K96W_kh6yeUeWsPmojPkSfwDe19_0Hg52roygvE8HiJ7rUzjk/exec';
+
+const SK_DESC = 'hostech_descriptivas_v1';
+const SK_CAT  = 'hostech_catalogo_v1';
+const RH_PIN  = '1234'; // Cambia este PIN
+
+const NIVELES = ['1. Básico','2. En desarrollo','3. Esperado','4. Avanzado','5. Sobresaliente'];
+const CARDINALES = [
+  { nombre: 'Orientación a resultados y ejecución',  desc: 'Enfoque en el logro de objetivos con agilidad y disciplina.' },
+  { nombre: 'Comunicación efectiva',                 desc: 'Transmitir y recibir información clara, oportuna y asertiva.' },
+  { nombre: 'Adaptabilidad y apertura al cambio',    desc: 'Ajustarse a nuevas condiciones con actitud positiva.' },
+  { nombre: 'Mentalidad de crecimiento',             desc: 'Desarrollar capacidades con esfuerzo y aprendizaje continuo.' },
+  { nombre: 'Trabajo colaborativo',                  desc: 'Contribuir activamente en equipos fomentando el logro conjunto.' }
+];
+
+let records = [], catalogo = [];
+let idiomaCount = 0;
+
+// ── STORAGE ──
+function loadLS(key, def=[]) { try { return JSON.parse(localStorage.getItem(key)) || def; } catch { return def; } }
+function saveLS(key, data) { try { localStorage.setItem(key, JSON.stringify(data)); } catch(e) {} }
+
+function init() {
+  records  = loadLS(SK_DESC);
+  catalogo = loadLS(SK_CAT);
+  buildCardinalTable('comp-cardinal-body');
+  populateCatalogoSelect();
+  renderStats();
+  setupChkListeners();
+  // Checkboxes dinámicos para recursos y confidencial
+  document.querySelectorAll('#recursos-chk-grid .chk-item, #confidencial-chk-grid .chk-item').forEach(label => {
+    label.querySelector('input').addEventListener('change', function() {
+      label.classList.toggle('checked', this.checked);
+    });
+  });
+  const today = new Date().toISOString().split('T')[0];
+  const fd = document.getElementById('f-fecha'); if (fd) fd.value = today;
+  ['f-colab-directos','f-colab-indirectos'].forEach(id => document.getElementById(id)?.addEventListener('input', calcTotal));
+}
+
+// ── HELPERS ──
+function g(id)  { return document.getElementById(id)?.value?.trim() || ''; }
+function gc(id) { return document.getElementById(id)?.checked || false; }
+function sv(id, v) { const el = document.getElementById(id); if (el) el.value = v || ''; }
+function sc(id, v) { const el = document.getElementById(id); if (el) el.checked = !!v; }
+function ss(id, v) {
+  const el = document.getElementById(id); if (!el || !v) return;
+  for (let o of el.options) if (o.value === v || o.text === v) { el.value = o.value; break; }
+}
+
+function showToast(msg, ok=true) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.className = ok ? 'ok' : 'err';
+  t.style.display = 'flex';
+  setTimeout(() => t.style.display = 'none', 3500);
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+  document.getElementById('view-'+tab).classList.add('active');
+  const idx = { form:0, db:1, rh:2 }[tab];
+  document.querySelectorAll('.tab-btn')[idx].classList.add('active');
+  if (tab === 'db') renderDB();
+  if (tab === 'rh') renderCatalogo();
+}
+
+// ── CHECKBOXES ──
+function setupChkListeners() {
+  const chkMap = [
+    ['f-jc','chk-jornada-completa'],['f-jm','chk-jornada-mixta'],['f-jmed','chk-jornada-media'],
+    ['f-mp','chk-mod-presencial'],['f-mh','chk-mod-hibrido'],['f-mr','chk-mod-remoto']
+  ];
+  chkMap.forEach(([inputId, labelId]) => {
+    const input = document.getElementById(inputId);
+    const label = document.getElementById(labelId);
+    if (!input || !label) return;
+    input.addEventListener('change', () => label.classList.toggle('checked', input.checked));
+  });
+}
+function setChk(inputId, labelId, val) {
+  sc(inputId, val);
+  const label = document.getElementById(labelId);
+  if (label) label.classList.toggle('checked', !!val);
+}
+
+// ── CATÁLOGO SELECT ──
+function populateCatalogoSelect() {
+  const sel = document.getElementById('catalogo-select');
+  while (sel.options.length > 2) sel.remove(2);
+  catalogo.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.id;
+    opt.text = p.nombre + (p.area ? ' — ' + p.area : '') + (p.nivel ? ' (' + p.nivel + ')' : '');
+    sel.appendChild(opt);
+  });
+}
+
+function precargarPuesto() {
+  const input = document.getElementById('f-nombre-nuevo');
+  const hint = document.getElementById('f-nombre-nuevo-hint');
+  const sel = document.getElementById('f-nombre');
+  const val = document.getElementById('catalogo-select').value;
+  // Si es puesto nuevo: ocultar select, mostrar input
+  if (val === '__nuevo__') {
+    if (sel) sel.style.display = 'none';
+    if (input) { input.style.display = 'block'; input.value = ''; input.focus(); }
+    if (hint) hint.style.display = 'block';
+    return;
+  } else {
+    if (sel) sel.style.display = 'block';
+    if (input) { input.style.display = 'none'; input.value = ''; }
+    if (hint) hint.style.display = 'none';
+  }
+  const notice = document.getElementById('preload-notice');
+  if (!val || val === '__nuevo__') { notice.classList.remove('show'); if (val === '__nuevo__') clearForm(); return; }
+  const p = catalogo.find(x => String(x.id) === String(val));
+  if (!p) return;
+  clearFormSilent();
+  sv('f-nombre', p.nombre); sv('f-area', p.area); sv('f-jefe', p.jefe); sv('f-clave', p.clave);
+  ss('f-nivel', p.nivel); sv('f-horas', p.horas); ss('f-eval-desempeno', p.eval);
+  setChk('f-jc','chk-jornada-completa', p.jornadas?.includes('Completa'));
+  setChk('f-jm','chk-jornada-mixta',    p.jornadas?.includes('Mixta'));
+  setChk('f-jmed','chk-jornada-media',  p.jornadas?.includes('Media'));
+  setChk('f-mp','chk-mod-presencial',   p.modalidades?.includes('Presencial'));
+  setChk('f-mh','chk-mod-hibrido',      p.modalidades?.includes('Híbrido'));
+  setChk('f-mr','chk-mod-remoto',       p.modalidades?.includes('Remoto'));
+  sv('f-mision', p.mision); sv('f-vision', p.vision); sv('f-objetivo', p.objetivo);
+  sv('f-escolaridad', p.escolaridad);
+  const expBody = document.getElementById('exp-body');
+  if (expBody) { expBody.innerHTML = ''; (p.experiencia||[]).forEach(e => addExp('', e.rango, e.area)); }
+  sv('f-func-sust', p.func_sust); sv('f-reemplazo', p.reemplazo);
+  ss('f-esf-mental', p.esf_mental); ss('f-esf-fisico', p.esf_fisico);
+  ss('f-ambiente', p.ambiente); ss('f-riesgo', p.riesgo); ss('f-impacto', p.impacto);
+  ss('f-disponibilidad', p.disponibilidad);
+  setRecursos(p.recursos);
+  setConfidencial(p.confidencial);
+  ss('f-licencia', p.licencia); ss('f-auto', p.auto_propio); ss('f-disp-horario', p.disp_horario);
+  buildCardinalTable('comp-cardinal-body');
+  if (p.comp_cardinal) p.comp_cardinal.forEach((c, i) => {
+    document.querySelectorAll('#cardinal-' + i + ' .nv').forEach(b => { if (b.textContent === c.nivel) b.classList.add('sel'); });
+  });
+  document.getElementById('comp-tec-body').innerHTML = '';
+  (p.comp_tec || []).forEach(c => addCompWithData('tec', c.nombre, c.nivel));
+  document.getElementById('comp-rel-body').innerHTML = '';
+  (p.comp_rel || []).forEach(c => addCompWithData('rel', c.nombre, c.nivel));
+  notice.classList.add('show');
+  showToast('Puesto "' + p.nombre + '" precargado ✓');
+  setTimeout(actualizarProgreso,300);
+  setTimeout(actualizarProgreso, 300);
+}
+
+// ── CARDINALES ──
+function buildCardinalTable(tbodyId) {
+  const tbody = document.getElementById(tbodyId); if (!tbody) return;
+  tbody.innerHTML = '';
+  const isForm = tbodyId === 'comp-cardinal-body';
+  CARDINALES.forEach((c, i) => {
+    const prefix = isForm ? 'cardinal' : 'ct-cardinal';
+    const tr = document.createElement('tr'); tr.id = prefix + '-' + i;
+    tr.innerHTML = `<td>
+      <div class="comp-name">${c.nombre}<span class="comp-cardinal-badge">cardinal</span></div>
+      <div class="comp-desc">${c.desc}</div>
+    </td>
+    <td><div class="nivel-btns">${NIVELES.map(n => `<button class="nv" onclick="selNivel(this,'${prefix}-${i}')">${n}</button>`).join('')}</div></td>`;
+    tbody.appendChild(tr);
+  });
+}
+
+function selNivel(btn, trId) {
+  document.querySelectorAll('#' + trId + ' .nv').forEach(b => b.classList.remove('sel'));
+  btn.classList.add('sel');
+}
+
+// ── COMPETENCIAS DINÁMICAS ──
+function addComp(tipo) {
+  const val = document.getElementById('new-comp-' + tipo)?.value?.trim();
+  if (!val) return;
+  addCompWithData(tipo, val, '');
+  document.getElementById('new-comp-' + tipo).value = '';
+}
+function addCompWithData(tipo, nombre, nivel) {
+  const uid = 'comp-' + Date.now() + Math.random().toString(36).slice(2,5);
+  const tr = document.createElement('tr'); tr.id = uid;
+  tr.innerHTML = `<td class="comp-name">${nombre}</td>
+    <td><div class="nivel-btns">${NIVELES.map(n => `<button class="nv${n===nivel?' sel':''}" onclick="selNivel(this,'${uid}')">${n}</button>`).join('')}</div></td>
+    <td><button class="btn btn-xs btn-danger" onclick="document.getElementById('${uid}').remove()">✕</button></td>`;
+  document.getElementById('comp-' + tipo + '-body').appendChild(tr);
+}
+
+function addCtComp(tipo) {
+  const val = document.getElementById('ct-new-' + tipo)?.value?.trim();
+  if (!val) return;
+  addCtCompWithData(tipo, val, '');
+  document.getElementById('ct-new-' + tipo).value = '';
+}
+function addCtCompWithData(tipo, nombre, nivel) {
+  const uid = 'ct-' + Date.now() + Math.random().toString(36).slice(2,5);
+  const tr = document.createElement('tr'); tr.id = uid;
+  tr.innerHTML = `<td class="comp-name">${nombre}</td>
+    <td><div class="nivel-btns">${NIVELES.map(n => `<button class="nv${n===nivel?' sel':''}" onclick="selNivel(this,'${uid}')">${n}</button>`).join('')}</div></td>
+    <td><button class="btn btn-xs btn-danger" onclick="document.getElementById('${uid}').remove()">✕</button></td>`;
+  document.getElementById('ct-' + tipo + '-body').appendChild(tr);
+}
+
+function getComps(tipo, prefix='comp') {
+  return [...document.querySelectorAll('#' + prefix + '-' + tipo + '-body tr')].map(tr => ({
+    nombre: tr.cells[0].textContent.trim(),
+    nivel: tr.querySelector('.nv.sel')?.textContent || ''
+  }));
+}
+function getCardinales(prefix='comp') {
+  return CARDINALES.map((c, i) => ({
+    nombre: c.nombre,
+    nivel: document.querySelector('#' + (prefix==='comp'?'cardinal':'ct-cardinal') + '-' + i + ' .nv.sel')?.textContent || ''
+  }));
+}
+
+
+
+// ── RECURSOS MATERIALES ──
+function addRecurso(val='') {
+  const id = 'recurso-extra-' + Date.now();
+  const div = document.createElement('div');
+  div.id = id;
+  div.style.cssText = 'display:flex;gap:8px;align-items:center;margin-bottom:6px';
+  div.innerHTML = `<input class="recurso-extra-input" placeholder="Ej. Maquinaria, equipo especializado…" value="${val}" style="flex:1;font-family:'DM Sans',sans-serif;font-size:13px;padding:7px 10px;border:1.5px solid var(--gris-borde);border-radius:var(--radio);background:var(--gris-bg);color:var(--negro)">
+    <button class="btn btn-xs btn-danger" onclick="document.getElementById('${id}').remove()">✕</button>`;
+  document.getElementById('recursos-extra-container').appendChild(div);
+}
+
+function addConfidencial(val='') {
+  const id = 'conf-extra-' + Date.now();
+  const div = document.createElement('div');
+  div.id = id;
+  div.style.cssText = 'display:flex;gap:8px;align-items:center;margin-bottom:6px';
+  div.innerHTML = `<input class="confidencial-extra-input" placeholder="Ej. Información estratégica específica…" value="${val}" style="flex:1;font-family:'DM Sans',sans-serif;font-size:13px;padding:7px 10px;border:1.5px solid var(--gris-borde);border-radius:var(--radio);background:var(--gris-bg);color:var(--negro)">
+    <button class="btn btn-xs btn-danger" onclick="document.getElementById('${id}').remove()">✕</button>`;
+  document.getElementById('confidencial-extra-container').appendChild(div);
+}
+
+function getRecursos() {
+  const checked = [...document.querySelectorAll('#recursos-chk-grid input:checked')].map(c => c.value);
+  const extras  = [...document.querySelectorAll('.recurso-extra-input')].map(i => i.value.trim()).filter(Boolean);
+  return [...checked, ...extras];
+}
+
+function getConfidencial() {
+  const checked = [...document.querySelectorAll('#confidencial-chk-grid input:checked')].map(c => c.value);
+  const extras  = [...document.querySelectorAll('.confidencial-extra-input')].map(i => i.value.trim()).filter(Boolean);
+  return [...checked, ...extras];
+}
+
+function setRecursos(arr) {
+  if (!arr) return;
+  const predefinidos = [...document.querySelectorAll('#recursos-chk-grid input')].map(i => i.value);
+  arr.forEach(v => {
+    const chk = document.querySelector(`#recursos-chk-grid input[value="${v}"]`);
+    if (chk) { chk.checked = true; chk.closest('.chk-item').classList.add('checked'); }
+    else addRecurso(v);
+  });
+}
+
+function setConfidencial(arr) {
+  if (!arr) return;
+  arr.forEach(v => {
+    const chk = document.querySelector(`#confidencial-chk-grid input[value="${v}"]`);
+    if (chk) { chk.checked = true; chk.closest('.chk-item').classList.add('checked'); }
+    else addConfidencial(v);
+  });
+}
+
+function recursosStr(arr) { return Array.isArray(arr) ? arr.join(', ') : (arr || ''); }
+
+
+// ── CLAVE AUTOMÁTICA ──
+const AREA_PREFIJOS = {
+  'Administración':  'ADM',
+  'Comercial':       'COM',
+  'Contabilidad':    'CONT',
+  'Dirección':       'DIR',
+  'Grupos y Bodas':  'GYB',
+  'Marketing':       'MKT',
+  'Operaciones':     'OPS',
+  'Producto':        'PROD',
+  'Recursos Humanos':'RH',
+  'Transformación':  'TRANS',
+};
+
+function autoGenerarClave() {
+  const area = document.getElementById('f-area')?.value;
+  const claveEl = document.getElementById('f-clave');
+  if (!area || !claveEl) return;
+  const prefijo = AREA_PREFIJOS[area] || area.slice(0,3).toUpperCase();
+  const existentes = records.filter(r => r.area === area).length;
+  const consecutivo = String(existentes + 1).padStart(3, '0');
+  claveEl.value = `${prefijo}-${consecutivo}`;
+  claveEl.style.color = 'var(--azul)';
+  claveEl.style.fontWeight = '500';
+}
+
+// ── EXPERIENCIA ──
+const EXP_RANGOS = ['No indispensable','Menos de 1 año','1 a 2 años','2 a 3 años','3 a 5 años','5 a 8 años','Más de 8 años'];
+
+function addExp(tipo='', rango='', area='') {
+  const tbody = document.getElementById('exp-body');
+  const tr = document.createElement('tr');
+  tr.className = 'exp-row';
+  const uid = 'exp-' + Date.now() + Math.random().toString(36).slice(2,4);
+  tr.id = uid;
+  tr.innerHTML = `
+    <td><select class="exp-rango">
+      <option value="">Seleccionar…</option>
+      ${EXP_RANGOS.map(r => `<option${r===rango?' selected':''}>${r}</option>`).join('')}
+    </select></td>
+    <td><input class="exp-area" placeholder="Ej. Atención a clientes, Recepción, Ventas…" value="${area}"></td>
+    <td style="text-align:center"><button class="btn btn-xs btn-danger" onclick="document.getElementById('${uid}').remove()">✕</button></td>`;
+  tbody.appendChild(tr);
+}
+
+function getExp() {
+  return [...document.querySelectorAll('#exp-body .exp-row')].map(tr => ({
+    rango: tr.querySelector('.exp-rango')?.value || '',
+    area:  tr.querySelector('.exp-area')?.value?.trim() || ''
+  })).filter(e => e.rango || e.area);
+}
+
+function addCtExp(rango='', area='') {
+  const tbody = document.getElementById('ct-exp-body');
+  if (!tbody) return;
+  const tr = document.createElement('tr');
+  tr.className = 'exp-row';
+  const uid = 'ct-exp-' + Date.now() + Math.random().toString(36).slice(2,4);
+  tr.id = uid;
+  tr.innerHTML = `
+    <td><select class="exp-rango">
+      <option value="">Seleccionar…</option>
+      ${EXP_RANGOS.map(r => `<option${r===rango?' selected':''}>${r}</option>`).join('')}
+    </select></td>
+    <td><input class="exp-area" placeholder="Ej. Atención a clientes, Recepción…" value="${area}"></td>
+    <td style="text-align:center"><button class="btn btn-xs btn-danger" onclick="document.getElementById('${uid}').remove()">✕</button></td>`;
+  tbody.appendChild(tr);
+}
+
+function getCtExp() {
+  return [...document.querySelectorAll('#ct-exp-body .exp-row')].map(tr => ({
+    rango: tr.querySelector('.exp-rango')?.value || '',
+    area:  tr.querySelector('.exp-area')?.value?.trim() || ''
+  })).filter(e => e.rango || e.area);
+}
+
+function expStr(arr) {
+  if (!arr || !arr.length) return '';
+  return arr.map(e => `${e.rango}${e.area?' — '+e.area:''}`).join('\n');
+}
+
+// ── IDIOMAS ──
+function addIdioma() {
+  idiomaCount++;
+  const id = 'idioma-' + idiomaCount;
+  const div = document.createElement('div');
+  div.id = id; div.className = 'idioma-row';
+  div.innerHTML = `
+    <div class="field"><label>Idioma</label><input class="idioma-nombre" style="font-family:'DM Sans',sans-serif;font-size:13px;padding:9px 12px;border:1.5px solid var(--gris-borde);border-radius:var(--radio);background:var(--gris-bg);color:var(--negro);width:100%" placeholder="Ej. Inglés"></div>
+    <div class="field"><label>Nivel</label><select class="idioma-nivel" style="font-family:'DM Sans',sans-serif;font-size:13px;padding:9px 12px;border:1.5px solid var(--gris-borde);border-radius:var(--radio);background:var(--gris-bg);width:100%"><option value="">…</option><option>Básico</option><option>Intermedio</option><option>Avanzado</option><option>Bilingüe</option></select></div>
+    <div class="field"><label>Uso</label><select class="idioma-uso" style="font-family:'DM Sans',sans-serif;font-size:13px;padding:9px 12px;border:1.5px solid var(--gris-borde);border-radius:var(--radio);background:var(--gris-bg);width:100%"><option value="">…</option><option>Lectura</option><option>Escritura</option><option>Conversación</option><option>Todos</option></select></div>
+    <button class="btn btn-sm btn-danger" onclick="document.getElementById('${id}').remove()" style="align-self:flex-end;height:37px;margin-bottom:1px">Quitar</button>`;
+  document.getElementById('idiomas-container').appendChild(div);
+}
+function getIdiomas() {
+  return [...document.querySelectorAll('#idiomas-container > div')].map(row => ({
+    nombre: row.querySelector('.idioma-nombre')?.value?.trim() || '',
+    nivel: row.querySelector('.idioma-nivel')?.value || '',
+    uso: row.querySelector('.idioma-uso')?.value || ''
+  })).filter(i => i.nombre);
+}
+function idiomasStr(arr) {
+  if (!arr || !arr.length) return 'Solo español';
+  return arr.map(i => `${i.nombre}${i.nivel?' — '+i.nivel:''}${i.uso?' ('+i.uso+')':''}`).join('\n');
+}
+
+// ── RESPONSABILIDADES ──
+function getResps() { return []; }
+
+// ── TOTAL COLABORADORES ──
+function calcTotal() {
+  const d = parseInt(document.getElementById('f-colab-directos')?.value) || 0;
+  const i = parseInt(document.getElementById('f-colab-indirectos')?.value) || 0;
+  const t = document.getElementById('f-colab-total');
+  if (t) t.value = d + i > 0 ? (d + i) + ' persona' + (d + i === 1 ? '' : 's') : '';
+}
+
+// ── CLEAR ──
+function clearFormSilent() {
+  ['f-nombre','f-area','f-subarea','f-jefe','f-clave','f-autor','f-revisor','f-aprobador','f-fecha','f-horas','f-sede','f-mision','f-vision','f-objetivo','f-escolaridad','f-conocimiento','f-hab-inter','f-func-sust','f-func-apoyo','f-func-event','f-colab-directos','f-colab-indirectos','f-colab-total','f-supervisados','f-rel-int','f-reemplazo','f-monto-ventas','f-monto-presupuesto','f-manejo-efectivo','f-caracteristicas']
+    .forEach(id => sv(id, ''));
+  ['f-nivel','f-eval-desempeno','f-resp-ventas','f-resp-presupuesto','f-esf-mental','f-esf-fisico','f-ambiente','f-riesgo','f-impacto','f-disponibilidad','f-licencia','f-auto','f-disp-horario']
+    .forEach(id => { const el = document.getElementById(id); if (el) el.selectedIndex = 0; });
+  [['f-jc','chk-jornada-completa'],['f-jm','chk-jornada-mixta'],['f-jmed','chk-jornada-media'],['f-mp','chk-mod-presencial'],['f-mh','chk-mod-hibrido'],['f-mr','chk-mod-remoto']]
+    .forEach(([inputId, labelId]) => setChk(inputId, labelId, false));
+  document.getElementById('idiomas-container').innerHTML = '';
+  const expB = document.getElementById('exp-body'); if(expB) expB.innerHTML = '';
+  document.querySelectorAll('#recursos-chk-grid input[type=checkbox]').forEach(c => { c.checked=false; c.closest('.chk-item').classList.remove('checked'); });
+  document.querySelectorAll('#confidencial-chk-grid input[type=checkbox]').forEach(c => { c.checked=false; c.closest('.chk-item').classList.remove('checked'); });
+  const rExtra = document.getElementById('recursos-extra-container'); if(rExtra) rExtra.innerHTML='';
+  const cExtra = document.getElementById('confidencial-extra-container'); if(cExtra) cExtra.innerHTML='';
+  document.getElementById('comp-tec-body').innerHTML = '';
+  document.getElementById('comp-rel-body').innerHTML = '';
+  idiomaCount = 0;
+}
+function clearForm() {
+  clearFormSilent();
+  buildCardinalTable('comp-cardinal-body');
+  setTimeout(actualizarProgreso,100);
+  setTimeout(actualizarProgreso, 100);
+  document.getElementById('catalogo-select').value = '';
+  const selNom = document.getElementById('f-nombre'); if(selNom) selNom.style.display='block';
+  const inputNom = document.getElementById('f-nombre-nuevo'); if(inputNom){inputNom.style.display='none';inputNom.value='';}
+  const hintNom = document.getElementById('f-nombre-nuevo-hint'); if(hintNom) hintNom.style.display='none';
+  document.getElementById('preload-notice').classList.remove('show');
+  const today = new Date().toISOString().split('T')[0];
+  sv('f-fecha', today);
+}
+function nuevaDescriptiva() {
+  document.getElementById('success-screen').style.display = 'none';
+  document.getElementById('form-fields').style.display = 'block';
+  clearForm();
+}
+
+// ── COLLECT DATA ──
+function collectFormData() {
+  const d = parseInt(document.getElementById('f-colab-directos')?.value) || 0;
+  const i = parseInt(document.getElementById('f-colab-indirectos')?.value) || 0;
+  const jornadas = ['Completa','Mixta','Media'].filter(j => gc('f-j'+j.toLowerCase().replace('ó','o').replace('a','a').replace('ixta','m').replace('edia','med')));
+  const jornadasArr = [];
+  if (gc('f-jc')) jornadasArr.push('Completa');
+  if (gc('f-jm')) jornadasArr.push('Mixta');
+  if (gc('f-jmed')) jornadasArr.push('Media');
+  const modalidadesArr = [];
+  if (gc('f-mp')) modalidadesArr.push('Presencial');
+  if (gc('f-mh')) modalidadesArr.push('Híbrido');
+  if (gc('f-mr')) modalidadesArr.push('Remoto');
+  return {
+    id: Date.now(),
+    fecha_guardado: new Date().toLocaleDateString('es-MX'),
+    puesto_tipo_id: (() => { const v = document.getElementById('catalogo-select')?.value; return v && v !== '__nuevo__' ? v : ''; })(),
+    nombre: (()=>{ const inp=document.getElementById('f-nombre-nuevo'); return (inp&&inp.style.display!=='none'&&inp.value.trim()) ? inp.value.trim() : g('f-nombre'); })(),
+    area: g('f-area'), autor: g('f-autor'),
+    subarea: g('f-subarea'), nivel: g('f-nivel'), clave: g('f-clave'),
+    revisor: g('f-revisor'), aprobador: g('f-aprobador'),
+    fecha: g('f-fecha'), eval_desempeno: g('f-eval-desempeno'), horas: g('f-horas'),
+    jornadas: jornadasArr, modalidades: modalidadesArr, sede: g('f-sede'),
+    mision: g('f-mision'), vision: g('f-vision'), objetivo: g('f-objetivo'),
+    escolaridad: g('f-escolaridad'), experiencia: getExp(),
+    conocimiento: g('f-conocimiento'), hab_inter: g('f-hab-inter'),
+    idiomas: getIdiomas(),
+    comp_cardinal: getCardinales('comp'), comp_tec: getComps('tec'), comp_rel: getComps('rel'),
+    responsabilidades: getResps(),
+    func_sust: g('f-func-sust'), func_apoyo: g('f-func-apoyo'), func_event: g('f-func-event'), jefe: g('f-jefe'), supervisados: g('f-supervisados'),
+    colab_directos: d, colab_indirectos: i, rel_int: g('f-rel-int'), reemplazo: g('f-reemplazo'),
+    resp_ventas: g('f-resp-ventas'), monto_ventas: g('f-monto-ventas'),
+    resp_presupuesto: g('f-resp-presupuesto'), monto_presupuesto: g('f-monto-presupuesto'),
+    manejo_efectivo: g('f-manejo-efectivo'),
+    esf_mental: g('f-esf-mental'), esf_fisico: g('f-esf-fisico'),
+    ambiente: g('f-ambiente'), riesgo: g('f-riesgo'), impacto: g('f-impacto'),
+    recursos: getRecursos(), confidencial: getConfidencial(),
+    disponibilidad: g('f-disponibilidad'), caracteristicas: g('f-caracteristicas'),
+    licencia: g('f-licencia'), auto_propio: g('f-auto'), disp_horario: g('f-disp-horario')
+  };
+}
+
+// ── GUARDAR LOCAL ──
+function saveLocal() {
+  if (!validarTodo()) return;
+  const rec = collectFormData();
+  records.unshift(rec);
+  saveLS(SK_DESC, records);
+  showToast('Guardado localmente ✓');
+  renderStats();
+}
+
+// ── ENVIAR A FORMSPREE ──
+async function submitForm() {
+  if (!validarTodo()) return;
+  const nombre = g('f-nombre'), area = g('f-area'), autor = g('f-autor');
+  if (!nombre || !area || !autor) { showToast('Completa: Nombre del puesto, Área y Elaborado por.', false); return; }
+  const rec = collectFormData();
+  const overlay = document.getElementById('sending-overlay');
+  overlay.classList.add('show');
+  try {
+    const payload = {
+      puesto: rec.nombre,
+      area: rec.area,
+      elaborado_por: rec.autor,
+      nivel: rec.nivel,
+      fecha: rec.fecha,
+      mision: rec.mision,
+      objetivo: rec.objetivo,
+      escolaridad: rec.escolaridad,
+      experiencia: expStr(rec.experiencia),
+      idiomas: idiomasStr(rec.idiomas),
+      competencias_cardinales: (rec.comp_cardinal||[]).map(c=>c.nombre+': '+c.nivel).join(' | '),
+      competencias_tecnicas: (rec.comp_tec||[]).map(c=>c.nombre+': '+c.nivel).join(' | '),
+      competencias_relacionales: (rec.comp_rel||[]).map(c=>c.nombre+': '+c.nivel).join(' | '),
+      responsabilidades: (rec.responsabilidades||[]).map((r,i)=>(i+1)+'. '+r.titulo+(r.desc?': '+r.desc:'')).join('\n'),
+      funciones_clave_del_puesto: rec.func_sust,
+      colaboradores_directos: rec.colab_directos,
+      colaboradores_indirectos: rec.colab_indirectos,
+      reemplazo: rec.reemplazo,
+      resp_ventas: rec.resp_ventas,
+      monto_ventas: rec.monto_ventas,
+      resp_presupuesto: rec.resp_presupuesto,
+      monto_presupuesto: rec.monto_presupuesto,
+      esfuerzo_mental: rec.esf_mental,
+      ambiente: rec.ambiente,
+      riesgo: rec.riesgo,
+      jornada: [...(rec.jornadas||[]),...(rec.modalidades||[])].join(', '),
+      revisor: rec.revisor,
+      aprobador: rec.aprobador,
+      licencia_conducir: rec.licencia,
+      automovil_propio: rec.auto_propio,
+      disponibilidad_horario: rec.disp_horario,
+      _subject: 'Nueva descriptiva de puesto: ' + rec.nombre + ' — ' + rec.area
+    };
+    const res = await fetch(FORMSPREE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    overlay.classList.remove('show');
+    if (res.ok) {
+      records.unshift(rec);
+      saveLS(SK_DESC, records);
+      renderStats();
+      // Generar PDF y obtener base64
+      const pdfBase64 = _generarPDFBase64(rec);
+      // Descargar PDF en la computadora del líder
+      _descargarPDF(rec, pdfBase64);
+      // Enviar a Google Apps Script (Sheets + Drive + correo)
+      enviarAGoogleSheets(rec, pdfBase64);
+      document.getElementById('form-fields').style.display = 'none';
+      document.getElementById('success-screen').style.display = 'block';
+    } else {
+      showToast('Error al enviar. Verifica el endpoint de Formspree.', false);
+    }
+  } catch(e) {
+    overlay.classList.remove('show');
+    showToast('Error de conexión. Intenta de nuevo.', false);
+  }
+}
+
+// ── STATS ──
+function renderStats() {
+  const areas = [...new Set(records.map(r => r.area))].length;
+  const panel = document.getElementById('stats-panel');
+  if (!panel) return;
+  panel.innerHTML = `
+    <div class="stat-card"><div class="stat-n">${records.length}</div><div class="stat-l">Descriptivas</div></div>
+    <div class="stat-card"><div class="stat-n">${areas}</div><div class="stat-l">Áreas cubiertas</div></div>
+    <div class="stat-card"><div class="stat-n">${catalogo.length}</div><div class="stat-l">Puestos en catálogo</div></div>`;
+}
+
+// ── BASE DE DATOS ──
+function renderDB() {
+  const q = (document.getElementById('search-input')?.value || '').toLowerCase();
+  const nf = document.getElementById('filter-nivel')?.value || '';
+  renderStats();
+  const fil = records.filter(r => (!q || [r.nombre,r.area,r.autor].join(' ').toLowerCase().includes(q)) && (!nf || r.nivel === nf));
+  const cont = document.getElementById('db-list');
+  if (!fil.length) { cont.innerHTML = '<div class="empty">No hay descriptivas registradas aún.</div>'; return; }
+  cont.innerHTML = fil.map(r => {
+    const tc = (r.colab_directos||0) + (r.colab_indirectos||0);
+    const hasF = r.resp_ventas || r.resp_presupuesto || r.manejo_efectivo;
+    const fromCat = r.puesto_tipo_id && catalogo.find(p => String(p.id) === String(r.puesto_tipo_id));
+    return `<div class="db-card">
+      <div class="db-card-hdr">
+        <div>
+          <div class="db-card-title">${r.nombre}</div>
+          <div class="db-card-sub">${r.area}${r.subarea?' · '+r.subarea:''} · ${r.fecha_guardado} · ${r.autor}</div>
+        </div>
+        <div class="db-card-btns">
+          ${r.nivel?`<span class="badge badge-azul">${r.nivel}</span>`:''}
+          ${fromCat?'<span class="badge badge-negro">del catálogo</span>':''}
+          ${hasF?'<span class="badge badge-verde">Resp. financiera</span>':''}
+          <button class="btn btn-sm" onclick="toggleDetail(${r.id})">Ver</button>
+          <button class="btn btn-sm btn-danger" onclick="deleteRecord(${r.id})">Eliminar</button>
+        </div>
+      </div>
+      <div class="db-meta">
+        <div class="db-meta-item">Reporta a: <strong>${r.jefe||'—'}</strong></div>
+        <div class="db-meta-item">Colaboradores: <strong>${tc>0?tc:'—'}</strong></div>
+        <div class="db-meta-item">Idiomas: <strong>${r.idiomas&&r.idiomas.length?r.idiomas.map(i=>i.nombre).join(', '):'Solo español'}</strong></div>
+        <div class="db-meta-item">Modalidad: <strong>${[...(r.modalidades||[]),...(r.jornadas||[])].join(', ')||'—'}</strong></div>
+      </div>
+      <div class="detail-panel" id="detail-${r.id}">
+        ${dv('Misión',r.mision)}${dv('Visión',r.vision)}${dv('Objetivo',r.objetivo)}
+        ${dv('Escolaridad',r.escolaridad)}${dv('Experiencia',expStr(r.experiencia))}
+        ${dv('Idiomas',idiomasStr(r.idiomas))}
+        ${cardinalTableStr(r.comp_cardinal)}
+        ${compTableStr('Competencias técnicas',r.comp_tec)}
+        ${compTableStr('Competencias relacionales',r.comp_rel)}
+        ${dv('Funciones clave del puesto',r.func_sust)}
+        
+        ${dv('Interactúa con',r.rel_int)}${dv('Reemplazo',r.reemplazo)}
+        ${r.resp_ventas?dv('Resp. ventas',r.resp_ventas+' '+r.monto_ventas):''}
+        ${r.resp_presupuesto?dv('Resp. presupuesto',r.resp_presupuesto+' '+r.monto_presupuesto):''}
+        ${dv('Efectivo/valores',r.manejo_efectivo)}
+        ${dv('Esfuerzo mental',r.esf_mental)}${dv('Ambiente',r.ambiente)}
+        ${dv('Licencia de conducir',r.licencia)}${dv('Automóvil propio',r.auto_propio)}${dv('Disponibilidad de horario',r.disp_horario)}
+          ${dv('Elabora/Revisa/Aprueba',[r.autor&&'Elabora: '+r.autor,r.revisor&&'Revisa: '+r.revisor,r.aprobador&&'Aprueba: '+r.aprobador].filter(Boolean).join(' · '))}
+      </div>
+    </div>`;
+  }).join('');
+}
+function dv(l, v) { if (!v) return ''; return `<div class="det-sec"><div class="det-lbl">${l}</div><div class="det-val">${v}</div></div>`; }
+function cardinalTableStr(arr) { if (!arr||!arr.length) return ''; const rows = arr.map(c=>`<tr><td style="padding:3px 0;font-size:12px;font-weight:500">${c.nombre}</td><td style="padding:3px 0 3px 12px;font-size:12px;color:var(--azul)">${c.nivel||'—'}</td></tr>`).join(''); return `<div class="det-sec"><div class="det-lbl">Competencias cardinales</div><table style="width:100%;border-collapse:collapse">${rows}</table></div>`; }
+function compTableStr(l, arr) { if (!arr||!arr.length) return ''; const rows = arr.map(c=>`<tr><td style="padding:3px 0;font-size:12px">${c.nombre}</td><td style="padding:3px 0 3px 12px;font-size:12px;color:var(--gris)">${c.nivel||'—'}</td></tr>`).join(''); return `<div class="det-sec"><div class="det-lbl">${l}</div><table style="width:100%;border-collapse:collapse">${rows}</table></div>`; }
+function respListStr(arr) { if (!arr||!arr.length) return ''; return `<div class="det-sec"><div class="det-lbl">Responsabilidades</div>${arr.map((r,i)=>`<div style="margin-bottom:5px"><span style="font-size:13px;font-weight:600">${i+1}. ${r.titulo}</span>${r.desc?`<div style="font-size:12px;color:var(--gris);margin-top:2px">${r.desc}</div>`:''}</div>`).join('')}</div>`; }
+function toggleDetail(id) { const el = document.getElementById('detail-'+id); el.style.display = el.style.display === 'block' ? 'none' : 'block'; }
+function deleteRecord(id) { if (!confirm('¿Eliminar esta descriptiva?')) return; records = records.filter(r => r.id !== id); saveLS(SK_DESC, records); renderDB(); showToast('Eliminado.'); }
+
+// ── PIN RH ──
+function verifyPin() {
+  const pin = document.getElementById('pin-input')?.value;
+  if (pin === RH_PIN) {
+    document.getElementById('rh-lock').style.display = 'none';
+    document.getElementById('rh-session').style.display = 'block';
+    document.getElementById('rh-content').style.display = 'block';
+    document.getElementById('pin-error').style.display = 'none';
+    renderCatalogo();
+  } else {
+    document.getElementById('pin-error').style.display = 'block';
+  }
+}
+function lockRH() {
+  document.getElementById('rh-lock').style.display = 'block';
+  document.getElementById('rh-session').style.display = 'none';
+  document.getElementById('rh-content').style.display = 'none';
+  document.getElementById('pin-input').value = '';
+}
+
+// ── CATÁLOGO RH ──
+function showCatalogoForm(editId) {
+  document.getElementById('catalogo-form').style.display = 'block';
+  buildCardinalTable('ct-cardinal-body');
+  if (editId) {
+    const p = catalogo.find(x => String(x.id) === String(editId)); if (!p) return;
+    sv('ct-nombre',p.nombre);sv('ct-area',p.area);ss('ct-nivel',p.nivel);sv('ct-jefe',p.jefe);sv('ct-clave',p.clave);sv('ct-horas',p.horas);ss('ct-eval',p.eval);sv('ct-escolaridad',p.escolaridad);
+    sc('ct-jc',p.jornadas?.includes('Completa'));sc('ct-jm',p.jornadas?.includes('Mixta'));sc('ct-jmed',p.jornadas?.includes('Media'));
+    sc('ct-mp',p.modalidades?.includes('Presencial'));sc('ct-mh',p.modalidades?.includes('Híbrido'));sc('ct-mr',p.modalidades?.includes('Remoto'));
+    sv('ct-mision',p.mision);sv('ct-vision',p.vision);sv('ct-objetivo',p.objetivo);sv('ct-func-sust',p.func_sust);
+    const ctEB = document.getElementById('ct-exp-body'); if(ctEB){ ctEB.innerHTML=''; (p.experiencia||[]).forEach(e=>addCtExp(e.rango,e.area)); };sv('ct-reemplazo',p.reemplazo);
+    ss('ct-esf-mental',p.esf_mental);ss('ct-esf-fisico',p.esf_fisico);ss('ct-ambiente',p.ambiente);ss('ct-riesgo',p.riesgo);ss('ct-impacto',p.impacto);ss('ct-disponibilidad',p.disponibilidad);ss('ct-licencia',p.licencia);ss('ct-auto',p.auto_propio);ss('ct-disp-horario',p.disp_horario);
+    if (p.comp_cardinal) p.comp_cardinal.forEach((c,i) => document.querySelectorAll('#ct-cardinal-'+i+' .nv').forEach(b => { if (b.textContent===c.nivel) b.classList.add('sel'); }));
+    document.getElementById('ct-tec-body').innerHTML='';(p.comp_tec||[]).forEach(c=>addCtCompWithData('tec',c.nombre,c.nivel));
+    document.getElementById('ct-rel-body').innerHTML='';(p.comp_rel||[]).forEach(c=>addCtCompWithData('rel',c.nombre,c.nivel));
+    document.getElementById('ct-editing-id').value = editId;
+  } else {
+    ['ct-nombre','ct-area','ct-jefe','ct-clave','ct-horas','ct-escolaridad','ct-mision','ct-vision','ct-objetivo','ct-func-sust','ct-reemplazo'].forEach(id=>sv(id,''));
+    const ctExpB = document.getElementById('ct-exp-body'); if(ctExpB) ctExpB.innerHTML = '';
+    ['ct-nivel','ct-eval','ct-esf-mental','ct-esf-fisico','ct-ambiente','ct-riesgo','ct-impacto','ct-disponibilidad','ct-licencia','ct-auto','ct-disp-horario'].forEach(id=>{const el=document.getElementById(id);if(el)el.selectedIndex=0;});
+    ['ct-jc','ct-jm','ct-jmed','ct-mp','ct-mh','ct-mr'].forEach(id=>sc(id,false));
+    document.getElementById('ct-tec-body').innerHTML='';document.getElementById('ct-rel-body').innerHTML='';
+    document.getElementById('ct-editing-id').value='';
+  }
+  document.getElementById('catalogo-form').scrollIntoView({ behavior:'smooth' });
+}
+function hideCatalogoForm() { document.getElementById('catalogo-form').style.display='none'; }
+
+function savePuestoTipo() {
+  const nombre = g('ct-nombre');
+  if (!nombre) { showToast('El nombre del puesto es obligatorio.', false); return; }
+  const jornadasArr=[]; if(gc('ct-jc'))jornadasArr.push('Completa');if(gc('ct-jm'))jornadasArr.push('Mixta');if(gc('ct-jmed'))jornadasArr.push('Media');
+  const modalidadesArr=[]; if(gc('ct-mp'))modalidadesArr.push('Presencial');if(gc('ct-mh'))modalidadesArr.push('Híbrido');if(gc('ct-mr'))modalidadesArr.push('Remoto');
+  const editId = document.getElementById('ct-editing-id').value;
+  const p = {
+    id: editId ? parseInt(editId) : Date.now(),
+    nombre, area:g('ct-area'), nivel:g('ct-nivel'), jefe:g('ct-jefe'), clave:g('ct-clave'),
+    horas:g('ct-horas'), eval:g('ct-eval'), escolaridad:g('ct-escolaridad'),
+    jornadas:jornadasArr, modalidades:modalidadesArr,
+    mision:g('ct-mision'), vision:g('ct-vision'), objetivo:g('ct-objetivo'),
+    experiencia:getCtExp(), func_sust:g('ct-func-sust'),  reemplazo:g('ct-reemplazo'),
+    comp_cardinal: CARDINALES.map((c,i)=>({nombre:c.nombre, nivel:document.querySelector('#ct-cardinal-'+i+' .nv.sel')?.textContent||''})),
+    comp_tec: getComps('tec','ct'), comp_rel: getComps('rel','ct'),
+    esf_mental:g('ct-esf-mental'), esf_fisico:g('ct-esf-fisico'),
+    ambiente:g('ct-ambiente'), riesgo:g('ct-riesgo'), impacto:g('ct-impacto'),
+    disponibilidad:g('ct-disponibilidad'),
+    licencia:g('ct-licencia'), auto_propio:g('ct-auto'), disp_horario:g('ct-disp-horario')
+  };
+  if (editId) catalogo = catalogo.map(x => String(x.id)===String(editId) ? p : x);
+  else catalogo.unshift(p);
+  saveLS(SK_CAT, catalogo);
+  populateCatalogoSelect();
+  hideCatalogoForm();
+  renderCatalogo();
+  renderStats();
+  showToast(editId ? 'Puesto tipo actualizado ✓' : 'Puesto tipo agregado al catálogo ✓');
+}
+
+async function deletePuestoTipo(id) {
+  if (!confirm('¿Eliminar este puesto tipo del catálogo?')) return;
+  catalogo = catalogo.filter(p => String(p.id) !== String(id));
+  saveLS(SK_CAT, catalogo);
+  populateCatalogoSelect();
+  renderCatalogo();
+  renderStats();
+  showToast('Eliminado del catálogo.');
+}
+
+function renderCatalogo() {
+  const cont = document.getElementById('catalogo-list'); if (!cont) return;
+  if (!catalogo.length) { cont.innerHTML = '<div class="empty">No hay puestos tipo. Agrega el primero.</div>'; return; }
+  cont.innerHTML = catalogo.map(p => `
+    <div class="db-card">
+      <div class="db-card-hdr">
+        <div>
+          <div class="db-card-title">${p.nombre}</div>
+          <div class="db-card-sub">${p.area||'—'}${p.nivel?' · '+p.nivel:''}</div>
+        </div>
+        <div class="db-card-btns">
+          ${p.nivel?`<span class="badge badge-azul">${p.nivel}</span>`:''}
+          ${p.modalidades&&p.modalidades.length?`<span class="badge badge-verde">${p.modalidades.join('/')}</span>`:''}
+          <button class="btn btn-sm btn-verde" onclick="showCatalogoForm(${p.id})">Editar</button>
+          <button class="btn btn-sm btn-danger" onclick="deletePuestoTipo(${p.id})">Eliminar</button>
+        </div>
+      </div>
+      <div class="db-meta">
+        <div class="db-meta-item">Reporta a: <strong>${p.jefe||'—'}</strong></div>
+        <div class="db-meta-item">Jornada: <strong>${[...(p.jornadas||[]),...(p.modalidades||[])].join(', ')||'—'}</strong></div>
+        <div class="db-meta-item">Comp. técnicas: <strong>${(p.comp_tec||[]).length}</strong></div>
+        <div class="db-meta-item">Comp. relacionales: <strong>${(p.comp_rel||[]).length}</strong></div>
+      </div>
+    </div>`).join('');
+}
+
+
+
+// ══════════════════════════════════════════════
+// EMAILJS — envío de correo con PDF adjunto
+// ══════════════════════════════════════════════
+const EMAILJS_SERVICE  = 'service_fv7xm3d';
+const EMAILJS_TEMPLATE = 'template_9anu2nf';
+const EMAILJS_KEY      = 'TZlMrGLccnqwmTKAO';
+
+function initEmailJS() {
+  emailjs.init({ publicKey: EMAILJS_KEY });
+}
+
+async function enviarPorEmailJS(rec, pdfBase64) {
+  const params = {
+    puesto:        rec.nombre,
+    area:          rec.area,
+    nivel:         rec.nivel || '—',
+    elaborado_por: rec.autor,
+    fecha:         rec.fecha || rec.fecha_guardado,
+    message:       `Nueva descriptiva de puesto: ${rec.nombre} — ${rec.area}`,
+  };
+  try {
+    await emailjs.send(EMAILJS_SERVICE, EMAILJS_TEMPLATE, params);
+    console.log('✓ Correo enviado por EmailJS');
+  } catch(e) {
+    console.warn('EmailJS error:', e);
+  }
+}
+
+// ══════════════════════════════════════════════
+// ACORDEÓN
+// ══════════════════════════════════════════════
+const SECCIONES = [
+  { id:'sec-I',    label:'I · Identificación' },
+  { id:'sec-II',   label:'II · Misión y Visión' },
+  { id:'sec-III',  label:'III · Objetivo' },
+  { id:'sec-IV',   label:'IV · Escolaridad' },
+  { id:'sec-V',    label:'V · Competencias' },
+  { id:'sec-VI',   label:'VI · Funciones' },
+  { id:'sec-VII',  label:'VII · Relaciones' },
+  { id:'sec-VIII', label:'VIII · Financiera' },
+  { id:'sec-IX',   label:'IX · Condiciones' },
+  { id:'sec-X',    label:'X · Perfil' },
+];
+
+const CAMPOS_OBL = {
+  'sec-I':   [{custom:'nombre_puesto',label:'Nombre del puesto'},{id:'f-area',label:'Área'},{id:'f-nivel',label:'Nivel'},{id:'f-autor',label:'Elaborado por'}],
+  'sec-II':  [{id:'f-mision',label:'Misión del puesto'}],
+  'sec-III': [{id:'f-objetivo',label:'Objetivo del puesto'}],
+  'sec-IV':  [{id:'f-escolaridad',label:'Escolaridad requerida'},{custom:'experiencia',label:'Al menos una experiencia'}],
+  'sec-V':   [{custom:'cardinales',label:'Nivel en las 5 competencias cardinales'}],
+  'sec-VI':  [{id:'f-func-sust',label:'Funciones clave del puesto'}],
+  'sec-VII': [{id:'f-colab-directos',label:'Colaboradores directos'},{id:'f-colab-indirectos',label:'Colaboradores indirectos'}],
+  'sec-IX':  [{id:'f-esf-mental',label:'Esfuerzo mental'},{id:'f-ambiente',label:'Ambiente físico'},{id:'f-riesgo',label:'Riesgo laboral'},{id:'f-impacto',label:'Impacto de errores'}],
+};
+
+function toggleSection(id) {
+  const toggle = document.getElementById(id+'-toggle');
+  const body   = document.getElementById(id+'-body');
+  if (!toggle || !body) return;
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  toggle.classList.toggle('open', !isOpen);
+}
+
+function openSection(id) {
+  const body   = document.getElementById(id+'-body');
+  const toggle = document.getElementById(id+'-toggle');
+  if (!body||!toggle) return;
+  body.classList.add('open');
+  toggle.classList.add('open');
+  setTimeout(()=>{
+    const w = document.getElementById(id+'-wrapper');
+    if(w) w.scrollIntoView({behavior:'smooth',block:'start'});
+  },100);
+}
+
+let allExpanded = false;
+function toggleAllSections() {
+  allExpanded = !allExpanded;
+  SECCIONES.forEach(s=>{
+    const b=document.getElementById(s.id+'-body');
+    const t=document.getElementById(s.id+'-toggle');
+    if(b) b.classList.toggle('open',allExpanded);
+    if(t) t.classList.toggle('open',allExpanded);
+  });
+  const btn = document.querySelector('.expand-all-btn');
+  if(btn) btn.textContent = allExpanded?'Colapsar todo':'Expandir todo';
+}
+
+function validarCampoObl(c) {
+  if(c.custom==='nombre_puesto') {
+    const sel=document.getElementById('f-nombre');
+    const inp=document.getElementById('f-nombre-nuevo');
+    if(inp&&inp.style.display!=='none') return inp.value.trim()!=='';
+    return sel&&sel.value.trim()!=='';
+  }
+  if(c.custom==='experiencia') return document.querySelectorAll('#exp-body .exp-row').length>0;
+  if(c.custom==='cardinales') {
+    const total=document.querySelectorAll('#comp-cardinal-body tr').length;
+    const sel=document.querySelectorAll('#comp-cardinal-body .nv.sel').length;
+    return total>0 && sel>=total;
+  }
+  const el=document.getElementById(c.id);
+  return el && el.value && el.value.trim()!=='';
+}
+
+function limpiarErrores() {
+  document.querySelectorAll('.field-error').forEach(el=>el.classList.remove('field-error'));
+  document.querySelectorAll('.field-error-msg').forEach(el=>el.remove());
+}
+
+function marcarError(c) {
+  if(c.custom) return;
+  const el=document.getElementById(c.id);
+  if(!el) return;
+  const fd=el.closest('.field');
+  if(fd){
+    fd.classList.add('field-error');
+    if(!fd.querySelector('.field-error-msg')){
+      const msg=document.createElement('div');
+      msg.className='field-error-msg';
+      msg.textContent='⚠ '+c.label+' es obligatorio';
+      fd.appendChild(msg);
+    }
+  }
+}
+
+function actualizarProgreso() {
+  limpiarErrores();
+  let completadas=0;
+  const chips=[];
+  SECCIONES.forEach(s=>{
+    const toggle=document.getElementById(s.id+'-toggle');
+    const statusEl=document.getElementById(s.id+'-status');
+    const campos=CAMPOS_OBL[s.id];
+    toggle&&toggle.classList.remove('done','has-errors');
+    if(statusEl) statusEl.textContent='';
+    if(!campos){
+      completadas++;
+      toggle&&toggle.classList.add('done');
+      if(statusEl) statusEl.textContent='✓';
+      chips.push('<span class="prog-chip done">'+s.label+'</span>');
+    } else {
+      const errores=campos.filter(c=>!validarCampoObl(c));
+      if(errores.length===0){
+        completadas++;
+        toggle&&toggle.classList.add('done');
+        if(statusEl) statusEl.textContent='✓ Completa';
+        chips.push('<span class="prog-chip done">'+s.label+'</span>');
+      } else {
+        chips.push('<span class="prog-chip pending">'+s.label+'</span>');
+      }
+    }
+  });
+  const total=SECCIONES.length;
+  const pct=Math.round(completadas/total*100);
+  const fill=document.getElementById('progress-fill');
+  const count=document.getElementById('progress-count');
+  const label=document.getElementById('progress-label');
+  const chipsEl=document.getElementById('progress-chips');
+  if(fill) fill.style.width=pct+'%';
+  if(count) count.textContent=completadas+' de '+total;
+  if(label) label.textContent=completadas===total?'¡Todo completo! Ya puedes enviar.':'Completa las secciones obligatorias para poder enviar';
+  if(chipsEl) chipsEl.innerHTML=chips.join('');
+}
+
+function validarTodo() {
+  limpiarErrores();
+  let primeraSec=null, primerCampo=null, ok=true;
+  for(const s of SECCIONES){
+    const campos=CAMPOS_OBL[s.id];
+    if(!campos) continue;
+    const errores=campos.filter(c=>!validarCampoObl(c));
+    if(errores.length>0){
+      ok=false;
+      const toggle=document.getElementById(s.id+'-toggle');
+      const statusEl=document.getElementById(s.id+'-status');
+      toggle&&toggle.classList.add('has-errors');
+      toggle&&toggle.classList.remove('done');
+      if(statusEl) statusEl.textContent='⚠ '+errores.length+' faltante'+(errores.length>1?'s':'');
+      errores.forEach(c=>marcarError(c));
+      if(!primeraSec){primeraSec=s.id;primerCampo=errores.find(c=>!c.custom)?.id;}
+    }
+  }
+  if(!ok&&primeraSec){
+    openSection(primeraSec);
+    if(primerCampo){
+      setTimeout(()=>{
+        const el=document.getElementById(primerCampo);
+        if(el){el.focus();el.scrollIntoView({behavior:'smooth',block:'center'});}
+      },350);
+    }
+    showToast('Completa los campos obligatorios antes de continuar.',false);
+  }
+  return ok;
+}
+
+function setupProgresoListeners() {
+  document.querySelectorAll('#form-fields input,#form-fields select,#form-fields textarea').forEach(el=>{
+    el.addEventListener('change',actualizarProgreso);
+    el.addEventListener('input',actualizarProgreso);
+  });
+  const obs=new MutationObserver(()=>actualizarProgreso());
+  const body=document.getElementById('form-fields');
+  if(body) obs.observe(body,{childList:true,subtree:true,attributes:true});
+}
+
+
+// ══════════════════════════════════════════════
+// GENERACIÓN DE PDF
+// ══════════════════════════════════════════════
+function idiomasStr(arr){if(!arr||!arr.length)return'Solo español';return arr.map(i=>`${i.nombre}${i.nivel?' — '+i.nivel:''}${i.uso?' ('+i.uso+')':''}`).join('\n');}
+function expStr(arr){return Array.isArray(arr)?arr.map(e=>e.rango+(e.area?' — '+e.area:'')).join('\n'):(arr||'');}
+function recursosStr(arr){return Array.isArray(arr)?arr.join(', '):(arr||'');}
+
+function downloadPDFAuto(r){if(!r)return;_generarPDF(r);}
+function downloadPDF(id){const r=records.find(x=>x.id===id);if(!r)return;_generarPDF(r);}
+
+function _generarPDF(r){
+  const {jsPDF}=window.jspdf;
+  const doc=new jsPDF({unit:'mm',format:'a4'});
+  const W=210,M=18,CW=W-M*2;let y=20;
+  const pc=(h=8)=>{if(y+h>275){doc.addPage();y=20;}};
+  const hdr=(txt,col=[83,74,183])=>{pc(10);doc.setFillColor(...col);doc.roundedRect(M,y,CW,8,2,2,'F');doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(255,255,255);doc.text(txt,M+4,y+5.5);y+=12;};
+  const fld=(lbl,val)=>{if(!val)return;pc(12);if(lbl){doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(90,85,150);doc.text(lbl.toUpperCase(),M,y);y+=4;}doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(40,40,40);doc.splitTextToSize(String(val),CW).forEach(l=>{pc(5);doc.text(l,M,y);y+=4.5;});y+=2;};
+
+  doc.setFillColor(83,74,183);doc.rect(0,0,210,14,'F');
+  doc.setFont('helvetica','bold');doc.setFontSize(13);doc.setTextColor(255,255,255);
+  doc.text('Descripción de Puesto — Hostech',M,9.5);
+  doc.setFont('helvetica','normal');doc.setFontSize(8);doc.text(r.fecha_guardado,W-M,9.5,{align:'right'});y=22;
+
+  hdr('I · Identificación');
+  fld('Puesto',r.nombre);fld('Área',r.area+(r.subarea?' / '+r.subarea:''));
+  fld('Nivel',r.nivel);fld('Reporta a',r.jefe);
+  fld('Jornada',[...(r.jornadas||[])].join(', ')+(r.horas?' · '+r.horas+'h/sem':''));
+  fld('Modalidad',[...(r.modalidades||[])].join(', ')+(r.sede?' · '+r.sede:''));
+  fld('Evaluación',r.eval_desempeno);fld('Elabora',r.autor);fld('Revisa',r.revisor);fld('Aprueba',r.aprobador);
+
+  hdr('II · Misión y Visión');fld('Misión',r.mision);fld('Visión',r.vision);
+  hdr('III · Objetivo');fld('',r.objetivo);
+
+  hdr('IV · Escolaridad y Experiencia');
+  fld('Escolaridad',r.escolaridad);fld('Experiencia',expStr(r.experiencia));
+  fld('Idiomas',idiomasStr(r.idiomas));
+
+  if(r.comp_cardinal&&r.comp_cardinal.length){
+    hdr('V-a · Competencias cardinales');
+    r.comp_cardinal.forEach(c=>{pc(6);doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(40,40,40);doc.text('• '+c.nombre,M,y);if(c.nivel){doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(83,74,183);doc.text(c.nivel,W-M,y,{align:'right'});}y+=5;});y+=2;
+  }
+  if(r.comp_tec&&r.comp_tec.length){
+    hdr('V-b · Competencias técnicas');
+    r.comp_tec.forEach(c=>{pc(6);doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(40,40,40);doc.text('• '+c.nombre,M,y);if(c.nivel){doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(83,74,183);doc.text(c.nivel,W-M,y,{align:'right'});}y+=5;});y+=2;
+  }
+  if(r.comp_rel&&r.comp_rel.length){
+    hdr('V-c · Otras competencias');
+    r.comp_rel.forEach(c=>{pc(6);doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(40,40,40);doc.text('• '+c.nombre,M,y);if(c.nivel){doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(83,74,183);doc.text(c.nivel,W-M,y,{align:'right'});}y+=5;});y+=2;
+  }
+
+  hdr('VI · Funciones');fld('Funciones clave',r.func_sust);fld('Funciones de apoyo',r.func_apoyo);fld('Funciones eventuales',r.func_event);
+
+  hdr('VII · Relaciones');
+  const tc=(r.colab_directos||0)+(r.colab_indirectos||0);
+  if(tc>0)fld('Colaboradores',tc+' ('+r.colab_directos+' dir./'+r.colab_indirectos+' indir.)');
+  fld('Supervisa',r.supervisados);fld('Interactúa con',r.rel_int);fld('Reemplazo',r.reemplazo);
+
+  const hF=r.resp_ventas||r.monto_ventas||r.resp_presupuesto||r.monto_presupuesto||r.manejo_efectivo;
+  if(hF){hdr('VIII · Resp. financiera',[14,110,86]);fld('Ventas',r.resp_ventas);fld('Monto ventas',r.monto_ventas);fld('Presupuesto',r.resp_presupuesto);fld('Monto presupuesto',r.monto_presupuesto);fld('Efectivo/valores',r.manejo_efectivo);}
+
+  hdr('IX · Condiciones de trabajo');
+  fld('Esfuerzo mental',r.esf_mental);fld('Esfuerzo físico',r.esf_fisico);
+  fld('Ambiente',r.ambiente);fld('Riesgo',r.riesgo);fld('Impacto errores',r.impacto);
+  fld('Recursos materiales',recursosStr(r.recursos));fld('Info. confidencial',recursosStr(r.confidencial));
+
+  hdr('X · Perfil del ocupante');
+  fld('Disponibilidad para viajar',r.disponibilidad);fld('Licencia',r.licencia);
+  fld('Automóvil propio',r.auto_propio);fld('Disponibilidad horario',r.disp_horario);
+  fld('Características',r.caracteristicas);
+
+  const pages=doc.internal.getNumberOfPages();
+  for(let i=1;i<=pages;i++){
+    doc.setPage(i);doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(160,160,160);
+    doc.text('Página '+i+' de '+pages,W/2,290,{align:'center'});
+    doc.text((r.nombre||'')+'  ·  '+(r.area||''),M,290);
+  }
+  doc.save('Descriptiva_'+(r.nombre||'puesto').replace(/\s+/g,'_')+'.pdf');
+}
+
+
+
+// Leer nombre del puesto considerando si es nuevo o del catálogo
+function getNombrePuesto() {
+  const sel = document.getElementById('f-nombre');
+  return sel ? sel.value.trim() : '';
+}
+
+// ── GOOGLE SHEETS + DRIVE ──
+async function enviarAGoogleSheets(rec, pdfBase64) {
+  try {
+    const payload = {
+      puesto:           rec.nombre,
+      area:             rec.area,
+      subarea:          rec.subarea || '',
+      nivel:            rec.nivel || '',
+      clave:            rec.clave || '',
+      reporta_a:        rec.jefe || '',
+      jornada:          (rec.jornadas||[]).join(', '),
+      modalidad:        (rec.modalidades||[]).join(', '),
+      horas:            rec.horas || '',
+      eval_desempeno:   rec.eval_desempeno || '',
+      sede:             rec.sede || '',
+      elaborado_por:    rec.autor,
+      revisado_por:     rec.revisor || '',
+      aprobado_por:     rec.aprobador || '',
+      mision:           rec.mision || '',
+      vision:           rec.vision || '',
+      objetivo:         rec.objetivo || '',
+      escolaridad:      rec.escolaridad || '',
+      experiencia:      expStr(rec.experiencia),
+      area_conocimiento:rec.conocimiento || '',
+      hab_interpersonales: rec.hab_inter || '',
+      idiomas:          idiomasStr(rec.idiomas),
+      comp_cardinal:    rec.comp_cardinal || [],
+      comp_tecnicas:    (rec.comp_tec||[]).map(c=>c.nombre+(c.nivel?': '+c.nivel:'')).join(' | '),
+      otras_competencias:(rec.comp_rel||[]).map(c=>c.nombre+(c.nivel?': '+c.nivel:'')).join(' | '),
+      funciones_clave:  rec.func_sust || '',
+      funciones_apoyo:  rec.func_apoyo || '',
+      funciones_eventuales: rec.func_event || '',
+      colab_directos:   rec.colab_directos || 0,
+      colab_indirectos: rec.colab_indirectos || 0,
+      supervisa:        rec.supervisados || '',
+      interactua:       rec.rel_int || '',
+      reemplazo:        rec.reemplazo || '',
+      resp_ventas:      rec.resp_ventas || '',
+      monto_ventas:     rec.monto_ventas || '',
+      resp_presupuesto: rec.resp_presupuesto || '',
+      monto_presupuesto:rec.monto_presupuesto || '',
+      efectivo_valores: rec.manejo_efectivo || '',
+      esf_mental:       rec.esf_mental || '',
+      esf_fisico:       rec.esf_fisico || '',
+      ambiente:         rec.ambiente || '',
+      riesgo:           rec.riesgo || '',
+      impacto:          rec.impacto || '',
+      recursos:         recursosStr(rec.recursos),
+      confidencial:     recursosStr(rec.confidencial),
+      disponibilidad:   rec.disponibilidad || '',
+      licencia:         rec.licencia || '',
+      auto_propio:      rec.auto_propio || '',
+      disp_horario:     rec.disp_horario || '',
+      caracteristicas:  rec.caracteristicas || '',
+      pdf_base64:       pdfBase64 || ''
+    };
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    console.log('✓ Enviado a Google Sheets y Drive');
+  } catch(e) {
+    console.warn('Google Sheets error:', e);
+  }
+}
+
+// Genera el PDF y retorna el base64 (sin descargar)
+function _generarPDFBase64(r) {
+  try {
+    const {jsPDF} = window.jspdf;
+    const doc = new jsPDF({unit:'mm', format:'a4'});
+    const W=210, M=18, CW=W-M*2; let y=20;
+    const pc=(h=8)=>{if(y+h>275){doc.addPage();y=20;}};
+    const hdr=(txt,col=[83,74,183])=>{pc(10);doc.setFillColor(...col);doc.roundedRect(M,y,CW,8,2,2,'F');doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(255,255,255);doc.text(txt,M+4,y+5.5);y+=12;};
+    const fld=(lbl,val)=>{if(!val)return;pc(12);if(lbl){doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(90,85,150);doc.text(lbl.toUpperCase(),M,y);y+=4;}doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(40,40,40);doc.splitTextToSize(String(val),CW).forEach(l=>{pc(5);doc.text(l,M,y);y+=4.5;});y+=2;};
+
+    doc.setFillColor(83,74,183);doc.rect(0,0,210,14,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(13);doc.setTextColor(255,255,255);
+    doc.text('Descripción de Puesto — Hostech',M,9.5);
+    doc.setFont('helvetica','normal');doc.setFontSize(8);doc.text(r.fecha_guardado||'',W-M,9.5,{align:'right'});y=22;
+
+    hdr('I · Identificación');
+    fld('Puesto',r.nombre);fld('Área',r.area+(r.subarea?' / '+r.subarea:''));
+    fld('Nivel',r.nivel);fld('Reporta a',r.jefe);
+    fld('Jornada',[...(r.jornadas||[])].join(', ')+(r.horas?' · '+r.horas+'h/sem':''));
+    fld('Modalidad',[...(r.modalidades||[])].join(', ')+(r.sede?' · '+r.sede:''));
+    fld('Evaluación',r.eval_desempeno);fld('Elabora',r.autor);fld('Revisa',r.revisor);fld('Aprueba',r.aprobador);
+    hdr('II · Misión y Visión');fld('Misión',r.mision);fld('Visión',r.vision);
+    hdr('III · Objetivo');fld('',r.objetivo);
+    hdr('IV · Escolaridad y Experiencia');
+    fld('Escolaridad',r.escolaridad);fld('Experiencia',expStr(r.experiencia));fld('Idiomas',idiomasStr(r.idiomas));
+    if(r.comp_cardinal&&r.comp_cardinal.length){hdr('V-a · Competencias cardinales');r.comp_cardinal.forEach(c=>{pc(6);doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(40,40,40);doc.text('• '+c.nombre,M,y);if(c.nivel){doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(83,74,183);doc.text(c.nivel,W-M,y,{align:'right'});}y+=5;});y+=2;}
+    if(r.comp_tec&&r.comp_tec.length){hdr('V-b · Competencias técnicas');r.comp_tec.forEach(c=>{pc(6);doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(40,40,40);doc.text('• '+c.nombre,M,y);if(c.nivel){doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(83,74,183);doc.text(c.nivel,W-M,y,{align:'right'});}y+=5;});y+=2;}
+    if(r.comp_rel&&r.comp_rel.length){hdr('V-c · Otras competencias');r.comp_rel.forEach(c=>{pc(6);doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(40,40,40);doc.text('• '+c.nombre,M,y);if(c.nivel){doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(83,74,183);doc.text(c.nivel,W-M,y,{align:'right'});}y+=5;});y+=2;}
+    hdr('VI · Funciones');fld('Funciones clave',r.func_sust);fld('Funciones de apoyo',r.func_apoyo);fld('Funciones eventuales',r.func_event);
+    hdr('VII · Relaciones');
+    const tc=(r.colab_directos||0)+(r.colab_indirectos||0);
+    if(tc>0)fld('Colaboradores',tc+' ('+r.colab_directos+' dir./'+r.colab_indirectos+' indir.)');
+    fld('Supervisa',r.supervisados);fld('Interactúa con',r.rel_int);fld('Reemplazo',r.reemplazo);
+    const hF=r.resp_ventas||r.monto_ventas||r.resp_presupuesto||r.monto_presupuesto||r.manejo_efectivo;
+    if(hF){hdr('VIII · Resp. financiera',[14,110,86]);fld('Ventas',r.resp_ventas);fld('Monto ventas',r.monto_ventas);fld('Presupuesto',r.resp_presupuesto);fld('Monto presupuesto',r.monto_presupuesto);fld('Efectivo',r.manejo_efectivo);}
+    hdr('IX · Condiciones de trabajo');
+    fld('Esfuerzo mental',r.esf_mental);fld('Esfuerzo físico',r.esf_fisico);
+    fld('Ambiente',r.ambiente);fld('Riesgo',r.riesgo);fld('Impacto',r.impacto);
+    fld('Recursos',recursosStr(r.recursos));fld('Info. confidencial',recursosStr(r.confidencial));
+    hdr('X · Perfil');
+    fld('Disponibilidad viajes',r.disponibilidad);fld('Licencia',r.licencia);
+    fld('Automóvil',r.auto_propio);fld('Horario',r.disp_horario);fld('Características',r.caracteristicas);
+
+    const pages=doc.internal.getNumberOfPages();
+    for(let i=1;i<=pages;i++){
+      doc.setPage(i);doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(160,160,160);
+      doc.text('Página '+i+' de '+pages,W/2,290,{align:'center'});
+      doc.text((r.nombre||'')+'  ·  '+(r.area||''),M,290);
+    }
+    return doc.output('datauristring').split(',')[1];
+  } catch(e) {
+    console.warn('Error generando PDF base64:', e);
+    return '';
+  }
+}
+
+// Descarga el PDF en la computadora del líder
+function _descargarPDF(r, base64) {
+  try {
+    if (base64) {
+      const link = document.createElement('a');
+      link.href = 'data:application/pdf;base64,' + base64;
+      link.download = 'Descriptiva_' + (r.nombre||'puesto').replace(/\s+/g,'_') + '.pdf';
+      link.click();
+    }
+  } catch(e) {
+    console.warn('Error descargando PDF:', e);
+  }
+}
+
+const CATALOGO_INICIAL = [{'id': 1, 'nombre': 'Administrador de Plataformas', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 2, 'nombre': 'Asistente de Dirección', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 3, 'nombre': 'Asistente General', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 4, 'nombre': 'Auxiliar Administrativo', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 5, 'nombre': 'Auxiliar Contable', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 6, 'nombre': 'Auxiliar de Limpieza', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 7, 'nombre': 'Chofer', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 8, 'nombre': 'Community Manager', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 9, 'nombre': 'Coordinador Contable', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 10, 'nombre': 'Coordinador de Reclutamiento y Selección', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 11, 'nombre': 'Desarrollador Full Stack', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 12, 'nombre': 'Director de Mercadotecnia', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 13, 'nombre': 'Director de Transformación', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 14, 'nombre': 'Director de Ventas', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 15, 'nombre': 'Director General', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 16, 'nombre': 'Diseñador Jr.', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 17, 'nombre': 'Diseñador Sr.', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 18, 'nombre': 'Encargada Administrativa', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 19, 'nombre': 'Ejecutiva de Bodas', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 20, 'nombre': 'Ejecutiva de Cobranza', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 21, 'nombre': 'Ejecutiva de Cotizaciones', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 22, 'nombre': 'Ejecutiva de Grupos', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 23, 'nombre': 'Ejecutiva de Precompras', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 24, 'nombre': 'Ejecutiva de Reservaciones', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 25, 'nombre': 'Ejecutiva de Seguimiento', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 26, 'nombre': 'Ejecutivo de Plataformas', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 27, 'nombre': 'Ejecutivo de Producto', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 28, 'nombre': 'Ejecutivo de Reservaciones', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 29, 'nombre': 'Ejecutivo de Ventas', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 30, 'nombre': 'Generalista de Recursos Humanos', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 31, 'nombre': 'Gerente de Administración', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 32, 'nombre': 'Gerente de Contabilidad', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 33, 'nombre': 'Gerente de Desarrollo Organizacional', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 34, 'nombre': 'Gerente de Grupos y Bodas', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 35, 'nombre': 'Gerente de Marketing', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 36, 'nombre': 'Gerente de Operaciones', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 37, 'nombre': 'Gerente de Producto', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 38, 'nombre': 'Gerente de Reservaciones', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 39, 'nombre': 'Gerente de Transformación', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 40, 'nombre': 'Gerente de Ventas', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 41, 'nombre': 'Gerente de Zona', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 42, 'nombre': 'Gestora de Proyectos y Procesos', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 43, 'nombre': 'Líder de Desarrollo', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 44, 'nombre': 'Responsable de Seguimiento A2A', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 45, 'nombre': 'Soporte', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 46, 'nombre': 'Supervisor de Cotizaciones', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 47, 'nombre': 'Supervisor de Reservas', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 48, 'nombre': 'Supervisor de Seguimiento', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}, {'id': 49, 'nombre': 'UX/UI Designer', 'area': '', 'nivel': '', 'jefe': '', 'clave': '', 'horas': '', 'eval': '', 'escolaridad': '', 'jornadas': [], 'modalidades': [], 'mision': '', 'vision': '', 'objetivo': '', 'experiencia': [], 'func_sust': '', 'resp_org': '', 'reemplazo': '', 'comp_cardinal': [], 'comp_tec': [], 'comp_rel': [], 'esf_mental': '', 'esf_fisico': '', 'ambiente': '', 'riesgo': '', 'impacto': '', 'edad': '', 'disponibilidad': '', 'licencia': '', 'auto_propio': '', 'disp_horario': ''}];
+
+function cargarCatalogoInicial() {
+  try {
+    const existing = loadLS(SK_CAT);
+    // Si no hay catálogo o tiene menos puestos que el inicial, cargar el inicial
+    if (!existing || existing.length < CATALOGO_INICIAL.length) {
+      // Conservar puestos tipo que RH haya enriquecido con info
+      const enriquecidos = (existing||[]).filter(p => p.area || p.nivel || p.objetivo);
+      const merged = CATALOGO_INICIAL.map(p => {
+        const enr = enriquecidos.find(e => e.nombre === p.nombre);
+        return enr || p;
+      });
+      saveLS(SK_CAT, merged);
+      catalogo = merged;
+    } else {
+      catalogo = existing;
+    }
+    populateCatalogoSelect();
+    console.log('✓ Catálogo listo:', catalogo.length, 'puestos');
+  } catch(e) {
+    console.warn('Error cargando catálogo inicial:', e);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', init);
+</script>
+</body>
+</html>
