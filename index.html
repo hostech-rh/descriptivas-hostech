@@ -1809,7 +1809,6 @@ function saveLocal() {
 // ── ENVIAR A FORMSPREE ──
 async function submitForm() {
   if (!validarTodo()) return;
-  if (!nombre || !area || !autor) { showToast('Completa: Nombre del puesto, Área y Elaborado por.', false); return; }
   const rec = collectFormData();
   const overlay = document.getElementById('sending-overlay');
   overlay.classList.add('show');
@@ -2163,9 +2162,8 @@ function validarCampoObl(c) {
   }
   if(c.custom==='experiencia') return document.querySelectorAll('#exp-body .exp-row').length>0;
   if(c.custom==='cardinales') {
-    const total=document.querySelectorAll('#comp-cardinal-body tr').length;
     const sel=document.querySelectorAll('#comp-cardinal-body .nv.sel').length;
-    return total>0 && sel>=total;
+    return sel>=5;
   }
   const el=document.getElementById(c.id);
   if(!el) return false;
