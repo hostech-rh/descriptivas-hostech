@@ -1809,7 +1809,6 @@ function saveLocal() {
 // ── ENVIAR A FORMSPREE ──
 async function submitForm() {
   if (!validarTodo()) return;
-  const nombre = g('f-nombre'), area = g('f-area'), autor = g('f-autor');
   if (!nombre || !area || !autor) { showToast('Completa: Nombre del puesto, Área y Elaborado por.', false); return; }
   const rec = collectFormData();
   const overlay = document.getElementById('sending-overlay');
@@ -2107,10 +2106,10 @@ const SECCIONES = [
 ];
 
 const CAMPOS_OBL = {
-  'sec-I':   [{custom:'nombre_puesto',label:'Nombre del puesto'},{id:'f-area',label:'Área'},{id:'f-nivel',label:'Nivel'},{id:'f-autor',label:'Elaborado por'}],
+  'sec-I':   [{custom:'nombre_puesto',label:'Nombre del puesto'},{custom:'area_select',label:'Área'},{id:'f-autor',label:'Elaborado por'}],
   'sec-II':  [{id:'f-mision',label:'Misión del puesto'}],
   'sec-III': [{id:'f-objetivo',label:'Objetivo del puesto'}],
-  'sec-IV':  [{id:'f-escolaridad',label:'Escolaridad requerida'},{custom:'experiencia',label:'Al menos una experiencia'}],
+  'sec-IV':  [{id:'f-escolaridad',label:'Escolaridad requerida'}],
   'sec-V':   [{custom:'cardinales',label:'Nivel en las 5 competencias cardinales'}],
   'sec-VI':  [{id:'f-func-sust',label:'Funciones clave del puesto'}],
   'sec-VII': [{id:'f-colab-directos',label:'Colaboradores directos'},{id:'f-colab-indirectos',label:'Colaboradores indirectos'}],
@@ -2152,6 +2151,10 @@ function toggleAllSections() {
 }
 
 function validarCampoObl(c) {
+  if(c.custom==='area_select') {
+    const el=document.getElementById('f-area');
+    return el && el.value && el.value.trim()!=='';
+  }
   if(c.custom==='nombre_puesto') {
     const sel=document.getElementById('f-nombre');
     const inp=document.getElementById('f-nombre-nuevo');
@@ -2165,7 +2168,9 @@ function validarCampoObl(c) {
     return total>0 && sel>=total;
   }
   const el=document.getElementById(c.id);
-  return el && el.value && el.value.trim()!=='';
+  if(!el) return false;
+  const val = el.value ? el.value.trim() : '';
+  return val !== '' && val !== 'undefined' && val !== 'null';
 }
 
 function limpiarErrores() {
