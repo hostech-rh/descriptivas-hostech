@@ -2271,90 +2271,160 @@ function setupProgresoListeners() {
 
 
 // ══════════════════════════════════════════════
-// GENERACIÓN DE PDF
+// GENERACIÓN DE PDF — versión final
 // ══════════════════════════════════════════════
-function idiomasStr(arr){if(!arr||!arr.length)return'Solo español';return arr.map(i=>`${i.nombre}${i.nivel?' — '+i.nivel:''}${i.uso?' ('+i.uso+')':''}`).join('\n');}
-function expStr(arr){return Array.isArray(arr)?arr.map(e=>e.rango+(e.area?' — '+e.area:'')).join('\n'):(arr||'');}
-function recursosStr(arr){return Array.isArray(arr)?arr.join(', '):(arr||'');}
+function _generarPDFBase64(r) {
+  try { return _buildPDF(r).output('datauristring').split(',')[1]; }
+  catch(e) { console.warn('Error PDF base64:', e); return ''; }
+}
+function downloadPDFAuto(r) { if(!r) return; _buildPDF(r).save('Descriptiva_'+(r.nombre||'puesto').replace(/\s+/g,'_')+'.pdf'); }
+function downloadPDF(id) { const r=records.find(x=>x.id===id); if(!r) return; _buildPDF(r).save('Descriptiva_'+(r.nombre||'puesto').replace(/\s+/g,'_')+'.pdf'); }
+function _descargarPDF(r,b64){try{if(b64){const a=document.createElement('a');a.href='data:application/pdf;base64,'+b64;a.download='Descriptiva_'+(r.nombre||'puesto').replace(/\s+/g,'_')+'.pdf';a.click();}}catch(e){}}
 
-function downloadPDFAuto(r){if(!r)return;_generarPDF(r);}
-function downloadPDF(id){const r=records.find(x=>x.id===id);if(!r)return;_generarPDF(r);}
-
-function _generarPDF(r){
+function _buildPDF(r) {
   const {jsPDF}=window.jspdf;
   const doc=new jsPDF({unit:'mm',format:'a4'});
-  const W=210,M=18,CW=W-M*2;let y=20;
-  const pc=(h=8)=>{if(y+h>275){doc.addPage();y=20;}};
-  const hdr=(txt,col=[83,74,183])=>{pc(10);doc.setFillColor(...col);doc.roundedRect(M,y,CW,8,2,2,'F');doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(255,255,255);doc.text(txt,M+4,y+5.5);y+=12;};
-  const fld=(lbl,val)=>{if(!val)return;pc(12);if(lbl){doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(90,85,150);doc.text(lbl.toUpperCase(),M,y);y+=4;}doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(40,40,40);doc.splitTextToSize(String(val),CW).forEach(l=>{pc(5);doc.text(l,M,y);y+=4.5;});y+=2;};
+  const W=210,M=18,CW=W-M*2; let y=22;
 
-  doc.setFillColor(83,74,183);doc.rect(0,0,210,14,'F');
-  doc.setFont('helvetica','bold');doc.setFontSize(13);doc.setTextColor(255,255,255);
-  doc.text('Descripción de Puesto — Hostech',M,9.5);
-  doc.setFont('helvetica','normal');doc.setFontSize(8);doc.text(r.fecha_guardado,W-M,9.5,{align:'right'});y=22;
+  const pc=(h=8)=>{if(y+h>272){doc.addPage();y=22;}};
 
-  hdr('I · Identificación');
-  fld('Puesto',r.nombre);fld('Área',r.area+(r.subarea?' / '+r.subarea:''));
-  fld('Nivel',r.nivel);fld('Reporta a',r.jefe);
-  fld('Jornada',[...(r.jornadas||[])].join(', ')+(r.horas?' · '+r.horas+'h/sem':''));
-  fld('Modalidad',[...(r.modalidades||[])].join(', ')+(r.sede?' · '+r.sede:''));
-  fld('Evaluación',r.eval_desempeno);fld('Elabora',r.autor);fld('Revisa',r.revisor);fld('Aprueba',r.aprobador);
+  const drawHeader=()=>{
+    doc.setFillColor(83,74,183);doc.rect(0,0,210,14,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(13);doc.setTextColor(255,255,255);
+    doc.text('Descripción de Puesto — Hostech',M,9.5);
+    doc.setFont('helvetica','normal');doc.setFontSize(8);
+    doc.text(r.fecha_guardado||'',W-M,9.5,{align:'right'});
+  };
 
-  hdr('II · Misión y Visión');fld('Misión',r.mision);fld('Visión',r.vision);
-  hdr('III · Objetivo');fld('',r.objetivo);
+  const drawFooter=(pg,total)=>{
+    doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(107,107,122);
+    const clave=(r.clave||'')+(r.clave&&r.nombre?' · ':'')+( r.nombre||'')+(r.area?' · '+r.area:'');
+    doc.text(clave,M,289);
+    doc.text('Página '+pg+' de '+total,W/2,289,{align:'center'});
+    doc.setFont('helvetica','italic');doc.setFontSize(6.5);
+    doc.text('Documento confidencial — Uso exclusivo de Recursos Humanos',W-M,289,{align:'right'});
+  };
 
-  hdr('IV · Escolaridad y Experiencia');
-  fld('Escolaridad',r.escolaridad);fld('Experiencia',expStr(r.experiencia));
-  fld('Idiomas',idiomasStr(r.idiomas));
+  drawHeader();
 
-  if(r.comp_cardinal&&r.comp_cardinal.length){
-    hdr('V-a · Competencias cardinales');
-    r.comp_cardinal.forEach(c=>{pc(6);doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(40,40,40);doc.text('• '+c.nombre,M,y);if(c.nivel){doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(83,74,183);doc.text(c.nivel,W-M,y,{align:'right'});}y+=5;});y+=2;
-  }
-  if(r.comp_tec&&r.comp_tec.length){
-    hdr('V-b · Competencias técnicas');
-    r.comp_tec.forEach(c=>{pc(6);doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(40,40,40);doc.text('• '+c.nombre,M,y);if(c.nivel){doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(83,74,183);doc.text(c.nivel,W-M,y,{align:'right'});}y+=5;});y+=2;
-  }
-  if(r.comp_rel&&r.comp_rel.length){
-    hdr('V-c · Otras competencias');
-    r.comp_rel.forEach(c=>{pc(6);doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(40,40,40);doc.text('• '+c.nombre,M,y);if(c.nivel){doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(83,74,183);doc.text(c.nivel,W-M,y,{align:'right'});}y+=5;});y+=2;
-  }
+  const section=(titulo,color=[83,74,183])=>{
+    pc(12);doc.setFillColor(...color);doc.roundedRect(M,y,CW,8,1.5,1.5,'F');
+    doc.setFont('helvetica','bold');doc.setFontSize(9);doc.setTextColor(255,255,255);
+    doc.text(titulo,M+4,y+5.5);y+=12;
+  };
 
-  hdr('VI · Funciones');fld('Funciones clave',r.func_sust);fld('Funciones de apoyo',r.func_apoyo);fld('Funciones eventuales',r.func_event);
+  const fld=(label,val)=>{
+    if(!val)return;pc(12);
+    if(label){doc.setFont('helvetica','bold');doc.setFontSize(7.5);doc.setTextColor(90,85,150);doc.text(label.toUpperCase(),M,y);y+=4;}
+    doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(40,40,40);
+    doc.splitTextToSize(String(val),CW).forEach(l=>{pc(5);doc.text(l,M,y);y+=4.5;});y+=2;
+  };
 
-  hdr('VII · Relaciones');
+  const funcsLista=(label,texto)=>{
+    if(!texto)return;
+    doc.setFont('helvetica','bold');doc.setFontSize(7.5);doc.setTextColor(90,85,150);
+    pc(6);doc.text(label.toUpperCase(),M,y);y+=4;
+    texto.split('\n').filter(l=>l.trim()).forEach(linea=>{
+      const wrapped=doc.splitTextToSize('• '+linea.trim(),CW-4);
+      wrapped.forEach((l,i)=>{pc(5);doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(40,40,40);doc.text(l,i===0?M:M+3,y);y+=5;});
+    });
+    y+=2;
+  };
+
+  const tablaDoble=(pares)=>{
+    const col1=42,col2=57,col3=38;
+    pares.forEach((par,pi)=>{
+      pc(8);
+      const bg=pi%2===0?[248,248,252]:[255,255,255];
+      doc.setFillColor(...bg);doc.rect(M,y-1,CW,7,'F');
+      doc.setFont('helvetica','bold');doc.setFontSize(7.5);doc.setTextColor(90,85,150);
+      if(par[0])doc.text(par[0].toUpperCase(),M+1,y+4);
+      if(par[2])doc.text(par[2].toUpperCase(),M+col1+col2+1,y+4);
+      doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(40,40,40);
+      if(par[1]){const lines=doc.splitTextToSize(par[1],col2-2);doc.text(lines[0]||'',M+col1,y+4);}
+      if(par[3]){const lines=doc.splitTextToSize(par[3],col3-2);doc.text(lines[0]||'',M+col1+col2+col3,y+4);}
+      y+=7;
+    });
+    y+=3;
+  };
+
+  const compRow=(nombre,nivel)=>{
+    pc(6);doc.setFont('helvetica','normal');doc.setFontSize(9);doc.setTextColor(40,40,40);
+    doc.text('• '+nombre,M,y);
+    if(nivel){doc.setFont('helvetica','bold');doc.setFontSize(8);doc.setTextColor(83,74,183);doc.text(nivel,W-M,y,{align:'right'});}
+    y+=5;
+  };
+
+  // I
+  section('I · Identificación del puesto');
+  const idP=[
+    ['Puesto',r.nombre||'','Área',(r.area||'')+(r.subarea?' / '+r.subarea:'')],
+    ['Nivel',r.nivel||'','Clave',r.clave||''],
+    ['Reporta a',r.jefe||'','Jornada',[...(r.jornadas||[])].join(', ')+(r.horas?' · '+r.horas+'h/sem':'')],
+    ['Modalidad',[...(r.modalidades||[])].join(', ')+(r.sede?' · '+r.sede:''),'Evaluación',r.eval_desempeno||''],
+    ['Elaborado por',r.autor||'','Fecha',r.fecha||r.fecha_guardado||''],
+  ];
+  if(r.revisor)idP.push(['Revisado por',r.revisor,'Aprobado por',r.aprobador||'']);
+  tablaDoble(idP);
+
+  // II
+  section('II · Misión y Visión');fld('Misión',r.mision);fld('Visión',r.vision);
+
+  // III
+  section('III · Objetivo y resultados esperados');fld('',r.objetivo);
+
+  // IV
+  section('IV · Escolaridad y Experiencia');
+  fld('Escolaridad requerida',r.escolaridad);fld('Experiencia requerida',expStr(r.experiencia));
+  fld('Área de conocimiento',r.conocimiento);fld('Idiomas',idiomasStr(r.idiomas));
+
+  // V
+  if(r.comp_cardinal&&r.comp_cardinal.length){section('V-a · Competencias cardinales');r.comp_cardinal.forEach(c=>compRow(c.nombre,c.nivel));y+=2;}
+  if(r.comp_tec&&r.comp_tec.length){section('V-b · Conocimientos y habilidades técnicas');r.comp_tec.forEach(c=>compRow(c.nombre,c.nivel));y+=2;}
+  if(r.comp_rel&&r.comp_rel.length){section('V-c · Otras competencias para la selección');r.comp_rel.forEach(c=>compRow(c.nombre,c.nivel));y+=2;}
+
+  // VI
+  section('VI · Funciones y tareas');
+  funcsLista('Funciones clave del puesto',r.func_sust);
+  funcsLista('Funciones de apoyo',r.func_apoyo);
+  funcsLista('Funciones eventuales',r.func_event);
+
+  // VII
+  section('VII · Relaciones e interacciones');
   const tc=(r.colab_directos||0)+(r.colab_indirectos||0);
-  if(tc>0)fld('Colaboradores',tc+' ('+r.colab_directos+' dir./'+r.colab_indirectos+' indir.)');
-  fld('Supervisa',r.supervisados);fld('Interactúa con',r.rel_int);fld('Reemplazo',r.reemplazo);
+  if(tc>0)fld('Colaboradores a cargo',tc+' total ('+r.colab_directos+' directos / '+r.colab_indirectos+' indirectos)');
+  fld('Interactúa con',r.rel_int);fld('Reemplazo en ausencia',r.reemplazo);
 
+  // VIII
   const hF=r.resp_ventas||r.monto_ventas||r.resp_presupuesto||r.monto_presupuesto||r.manejo_efectivo;
-  if(hF){hdr('VIII · Resp. financiera',[14,110,86]);fld('Ventas',r.resp_ventas);fld('Monto ventas',r.monto_ventas);fld('Presupuesto',r.resp_presupuesto);fld('Monto presupuesto',r.monto_presupuesto);fld('Efectivo/valores',r.manejo_efectivo);}
-
-  hdr('IX · Condiciones de trabajo');
-  fld('Esfuerzo mental',r.esf_mental);fld('Esfuerzo físico',r.esf_fisico);
-  fld('Ambiente',r.ambiente);fld('Riesgo',r.riesgo);fld('Impacto errores',r.impacto);
-  fld('Recursos materiales',recursosStr(r.recursos));fld('Info. confidencial',recursosStr(r.confidencial));
-
-  hdr('X · Perfil del ocupante');
-  fld('Disponibilidad para viajar',r.disponibilidad);fld('Licencia',r.licencia);
-  fld('Automóvil propio',r.auto_propio);fld('Disponibilidad horario',r.disp_horario);
-  fld('Características',r.caracteristicas);
-
-  const pages=doc.internal.getNumberOfPages();
-  for(let i=1;i<=pages;i++){
-    doc.setPage(i);doc.setFont('helvetica','normal');doc.setFontSize(7);doc.setTextColor(160,160,160);
-    doc.text('Página '+i+' de '+pages,W/2,290,{align:'center'});
-    doc.text((r.nombre||'')+'  ·  '+(r.area||''),M,290);
+  if(hF){
+    section('VIII · Responsabilidad financiera',[14,110,86]);
+    fld('Resp. ventas',r.resp_ventas);fld('Monto ventas',r.monto_ventas);
+    fld('Resp. presupuesto',r.resp_presupuesto);fld('Monto presupuesto',r.monto_presupuesto);
+    fld('Efectivo / valores',r.manejo_efectivo);
   }
-  doc.save('Descriptiva_'+(r.nombre||'puesto').replace(/\s+/g,'_')+'.pdf');
-}
 
+  // IX
+  section('IX · Condiciones de trabajo');
+  tablaDoble([
+    ['Esfuerzo mental',r.esf_mental||'','Esfuerzo físico',r.esf_fisico||''],
+    ['Ambiente físico',r.ambiente||'','Riesgo laboral',r.riesgo||''],
+    ['Impacto de errores',r.impacto||'','Recursos materiales',recursosStr(r.recursos)],
+    ['Info. confidencial',recursosStr(r.confidencial),'',''],
+  ]);
 
+  // X
+  section('X · Perfil del ocupante');
+  tablaDoble([
+    ['Disponibilidad para viajar',r.disponibilidad||'','Licencia de conducir',r.licencia||''],
+    ['Automóvil propio',r.auto_propio||'','Disponibilidad de horario',r.disp_horario||''],
+    ['Características personales',r.caracteristicas||'','',''],
+  ]);
 
-// Leer nombre del puesto considerando si es nuevo o del catálogo
-function getNombrePuesto() {
-  const sel = document.getElementById('f-nombre');
-  return sel ? sel.value.trim() : '';
+  // Footers
+  const total=doc.internal.getNumberOfPages();
+  for(let i=1;i<=total;i++){doc.setPage(i);drawFooter(i,total);}
+  return doc;
 }
 
 // ── GOOGLE SHEETS + DRIVE ──
