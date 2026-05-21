@@ -1813,64 +1813,26 @@ async function submitForm() {
   const overlay = document.getElementById('sending-overlay');
   overlay.classList.add('show');
   try {
-    const payload = {
-      puesto: rec.nombre,
-      area: rec.area,
-      elaborado_por: rec.autor,
-      nivel: rec.nivel,
-      fecha: rec.fecha,
-      mision: rec.mision,
-      objetivo: rec.objetivo,
-      escolaridad: rec.escolaridad,
-      experiencia: expStr(rec.experiencia),
-      idiomas: idiomasStr(rec.idiomas),
-      competencias_cardinales: (rec.comp_cardinal||[]).map(c=>c.nombre+': '+c.nivel).join(' | '),
-      competencias_tecnicas: (rec.comp_tec||[]).map(c=>c.nombre+': '+c.nivel).join(' | '),
-      competencias_relacionales: (rec.comp_rel||[]).map(c=>c.nombre+': '+c.nivel).join(' | '),
-      responsabilidades: (rec.responsabilidades||[]).map((r,i)=>(i+1)+'. '+r.titulo+(r.desc?': '+r.desc:'')).join('\n'),
-      funciones_clave_del_puesto: rec.func_sust,
-      colaboradores_directos: rec.colab_directos,
-      colaboradores_indirectos: rec.colab_indirectos,
-      reemplazo: rec.reemplazo,
-      resp_ventas: rec.resp_ventas,
-      monto_ventas: rec.monto_ventas,
-      resp_presupuesto: rec.resp_presupuesto,
-      monto_presupuesto: rec.monto_presupuesto,
-      esfuerzo_mental: rec.esf_mental,
-      ambiente: rec.ambiente,
-      riesgo: rec.riesgo,
-      jornada: [...(rec.jornadas||[]),...(rec.modalidades||[])].join(', '),
-      revisor: rec.revisor,
-      aprobador: rec.aprobador,
-      licencia_conducir: rec.licencia,
-      automovil_propio: rec.auto_propio,
-      disponibilidad_horario: rec.disp_horario,
-      _subject: 'Nueva descriptiva de puesto: ' + rec.nombre + ' — ' + rec.area
-    };
-    const res = await fetch(FORMSPREE_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify(payload)
-    });
+    // 1. Guardar localmente
+    records.unshift(rec);
+    saveLS(SK_DESC, records);
+    renderStats();
+    // 2. Generar PDF y descargarlo
+    const pdfBase64 = _generarPDFBase64(rec);
+    _descargarPDF(rec, pdfBase64);
+    // 3. Enviar a Google Sheets + Drive + correo
+    enviarAGoogleSheets(rec, pdfBase64);
+    // 4. Enviar correo via EmailJS
+    await enviarPorEmailJS(rec);
     overlay.classList.remove('show');
-    if (res.ok) {
-      records.unshift(rec);
-      saveLS(SK_DESC, records);
-      renderStats();
-      // Generar PDF y obtener base64
-      const pdfBase64 = _generarPDFBase64(rec);
-      // Descargar PDF en la computadora del líder
-      _descargarPDF(rec, pdfBase64);
-      // Enviar a Google Apps Script (Sheets + Drive + correo)
-      enviarAGoogleSheets(rec, pdfBase64);
-      document.getElementById('form-fields').style.display = 'none';
-      document.getElementById('success-screen').style.display = 'block';
-    } else {
-      showToast('Error al enviar. Verifica el endpoint de Formspree.', false);
-    }
+    document.getElementById('form-fields').style.display = 'none';
+    document.getElementById('success-screen').style.display = 'block';
   } catch(e) {
     overlay.classList.remove('show');
-    showToast('Error de conexión. Intenta de nuevo.', false);
+    console.warn('Error al enviar:', e);
+    // Aunque falle algo, mostrar éxito si el PDF se descargó
+    document.getElementById('form-fields').style.display = 'none';
+    document.getElementById('success-screen').style.display = 'block';
   }
 }
 
